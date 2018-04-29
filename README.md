@@ -5,6 +5,6 @@ It is based on the Yoga Sūtras of Patañjali, where it exposes the first two Yo
 
 # Implementation of the back end to the project
 
-##PostgreSQL database schema
+## PostgreSQL database schema
 
 ![Shema should be here...](https://github.com/matevzmarkovic/youareatman/blob/master/help/database_shema.png)
