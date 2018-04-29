@@ -1,0 +1,5 @@
+sudo su - postgres
+>
+    createuser -d -l -r -s atman
+    \password atman v psql
+    psql -U atman -W -d postgres < init.sql
