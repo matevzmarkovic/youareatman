@@ -1,3 +1,10 @@
+#Exclude backup text files
+*~
+
+#Exclude hidden files
+.*
+!/.gitignore
+
 # Compiled class file
 *.class
 
