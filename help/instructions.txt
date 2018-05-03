@@ -1,0 +1,12 @@
+#manually create database
+sudo su - postgres
+>
+    createuser -d -l -r -s atman
+    \password atman v psql
+    psql -U atman -W -d postgres < init.sql
+    
+#docker for postgres
+docker build -t youareatman_postgres .
+docker run -d --name YouAreAtmanPostgres -e POSTGRES_PASSWORD=youareatman -e POSTGRES_USER=atman youareatman_postgres
+    "-it --rm" for testing with Bash
+    docker exec -it YouAreAtmanPostgres bash
