@@ -13,3 +13,9 @@ docker run -d --name YouAreAtmanPostgres -e POSTGRES_PASSWORD=youareatman -e POS
     
 #Usage of the image from other images:
 docker run --name some-app --link some-postgres:postgres -d application-that-uses-postgres
+
+#Password hashing test queries (SQL)
+INSERT INTO "User" ("Email", "PassHash") VALUES
+  ('nick@example.com', crypt('12345', gen_salt('bf', 8)));
+SELECT * FROM "User" WHERE "Email" = lower('nick@example.com') AND
+                          "PassHash" = crypt('12345', "PassHash");

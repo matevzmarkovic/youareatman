@@ -7,10 +7,14 @@ CREATE DATABASE youareatman;
 
 \c youareatman;
 
+-- Following tutorial at https://www.meetspaceapp.com/2016/04/12/passwords-postgresql-pgcrypto.html
+CREATE EXTENSION pgcrypto;
+
 -- CREATE TABLE "User" -----------------------------------------
 CREATE TABLE "User" ( 
 	"Email" Character Varying( 100 ) NOT NULL,
 	"JoinDate" Date DEFAULT CURRENT_DATE NOT NULL,
+	"PassHash" Character Varying( 100 ) NOT NULL,
 	PRIMARY KEY ( "Email" ) );
  ;
 -- -------------------------------------------------------------
