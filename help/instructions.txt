@@ -7,9 +7,12 @@ sudo su - postgres
     
 #docker for postgres
 docker build -t youareatman_postgres .
-docker run -d --name YouAreAtmanPostgres -e POSTGRES_PASSWORD=youareatman -e POSTGRES_USER=atman youareatman_postgres
+(without SSL) docker run -d --name YouAreAtmanPostgres -e POSTGRES_PASSWORD=youareatman -e POSTGRES_USER=atman youareatman_postgres
     "-it --rm" for testing with Bash
-    docker exec -it YouAreAtmanPostgres bash
+(with SSL) docker run -d --name YouAreAtmanPostgres -v $PWD/testKeys/server.crt:/var/lib/postgresql/data/server.crt -v $PWD/testKeys/server.key:/var/lib/postgresql/data/server.key -e POSTGRES_PASSWORD=youareatman -e POSTGRES_USER=atman youareatman_postgres -c ssl=on
+    (!) Doesn't work, due to PGDATA directory not being empty at Container creation.
+
+[start Bash] docker exec -it YouAreAtmanPostgres bash
     
 #Usage of the image from other images:
 docker run --name some-app --link some-postgres:postgres -d application-that-uses-postgres
