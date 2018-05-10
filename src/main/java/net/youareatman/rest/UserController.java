@@ -5,6 +5,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.*;
@@ -24,27 +25,26 @@ public class UserController {
 
     @RequestMapping(value = "/users",method=GET)
     @ResponseBody
-    //Return all users, if no parameters
     public List<User> listUsers() {
         return null;
     }
 
     @RequestMapping(value = "/users/{userEmail}",method=GET)
     @ResponseBody
-    //Return a particular user, if email is found in the database
     public User listUser(@PathVariable( "userEmail" ) String userEmail) {
         return null;
     }
 
-    @RequestMapping(value = "/users/password/{userEmail}",method=PUT)
+    @RequestMapping(value = "/users/{userEmail}/password",method=PUT)
     @ResponseBody
-    public User changeUserPassword(@PathVariable( "userEmail" ) String userEmail,@RequestBody ChangePasswordForm changePasswordForm) {
-        return null;
+    public void changeUserPassword(@PathVariable( "userEmail" ) String userEmail,@RequestBody ChangePasswordForm changePasswordForm) {
+
     }
 
-    @RequestMapping(value = "/users/date/{userEmail}",method=PUT)
+    @RequestMapping(value = "/users/{userEmail}/date",method=PUT)
     @ResponseBody
     public void changeUserJoinDate(@PathVariable( "userEmail" ) String userEmail,@RequestBody ChangeDateForm changeDateForm) {
+
     }
 
     @RequestMapping(value = "/users/{userEmail}",method=POST)
@@ -65,13 +65,37 @@ public class UserController {
 
     @RequestMapping(value = "/yamas",method=GET)
     @ResponseBody
-    public List<YamasEntry> listYamasEntries() {
+    public List<YamasEntry> listAllYamasEntries() {
         return null;
     }
 
     @RequestMapping(value = "/niyamas",method=GET)
     @ResponseBody
-    public List<NiyamasEntry> listNiyamasEntries() {
+    public List<NiyamasEntry> listAllNiyamasEntries() {
+        return null;
+    }
+
+    @RequestMapping(value = "/yamas/{userEmail}",method=GET)
+    @ResponseBody
+    public YamasEntry listYamasEntriesByUser(@PathVariable( "userEmail" ) String userEmail) {
+        return null;
+    }
+
+    @RequestMapping(value = "/niyamas/{userEmail}",method=GET)
+    @ResponseBody
+    public NiyamasEntry listNiyamasEntriesByUser(@PathVariable( "userEmail" ) String userEmail) {
+        return null;
+    }
+
+    @RequestMapping(value = "/yamas/{date}",method=GET)
+    @ResponseBody
+    public YamasEntry listYamasEntriesByDate(@PathVariable( "date" ) Date date) {
+        return null;
+    }
+
+    @RequestMapping(value = "/niyamas/{date}",method=GET)
+    @ResponseBody
+    public NiyamasEntry listNiyamasEntriesByDate(@PathVariable( "date" ) Date date) {
         return null;
     }
 
@@ -93,15 +117,15 @@ public class UserController {
 
     }
 
-    @RequestMapping(value = "/yamas",method=PUT)
-    @ResponseBody
-    public void changeYamasEntry(@RequestBody YamasEntry yamasEntry) {
-
-    }
-
     @RequestMapping(value = "/niyamas",method=POST)
     @ResponseBody
     public void createNiyamasEntry(@RequestBody NiyamasEntry niyamasEntry) {
+
+    }
+
+    @RequestMapping(value = "/yamas",method=PUT)
+    @ResponseBody
+    public void changeYamasEntry(@RequestBody YamasEntry yamasEntry) {
 
     }
 
@@ -113,13 +137,13 @@ public class UserController {
 
     @RequestMapping(value = "/yamas",method=DELETE)
     @ResponseBody
-    public void deleteYamas(@RequestBody YamasEntryForm yamasEntryForm) {
+    public void deleteYamasEntry(@RequestBody YamasEntryForm yamasEntryForm) {
 
     }
 
     @RequestMapping(value = "/niyamas",method=DELETE)
     @ResponseBody
-    public void deleteNiyamas(@RequestBody NiyamasEntryForm niyamasEntryForm) {
+    public void deleteNiyamasEntry(@RequestBody NiyamasEntryForm niyamasEntryForm) {
 
     }
 
@@ -130,6 +154,18 @@ public class UserController {
     @RequestMapping(value = "/incident",method=GET)
     @ResponseBody
     public List<IncidentEntry> listIncidentEntries() {
+        return null;
+    }
+
+    @RequestMapping(value = "/incident/{userEmail}",method=GET)
+    @ResponseBody
+    public IncidentEntry listIncidentEntriesByUser(@PathVariable( "userEmail" ) String userEmail) {
+        return null;
+    }
+
+    @RequestMapping(value = "/incident/{date}",method=GET)
+    @ResponseBody
+    public IncidentEntry listIncidentEntriesByDate(@PathVariable( "date" ) Date date) {
         return null;
     }
 
