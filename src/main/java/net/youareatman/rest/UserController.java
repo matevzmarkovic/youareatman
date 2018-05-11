@@ -3,6 +3,7 @@ package net.youareatman.rest;
 import net.youareatman.model.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -15,7 +16,6 @@ public class UserController {
 
     private static Logger logger = LogManager.getLogger(UserController.class);
 
-    //TODO add response - http status and body
     //TODO add exceptions
     //TODO add https
 
@@ -25,38 +25,38 @@ public class UserController {
 
     @RequestMapping(value = "/users",method=GET)
     @ResponseBody
-    public List<User> listUsers() {
-        return null;
+    public ResponseEntity<List<User>> listUsers() {
+        return ResponseEntity.ok(null);
     }
 
     @RequestMapping(value = "/users/{userEmail}",method=GET)
     @ResponseBody
-    public User listUser(@PathVariable( "userEmail" ) String userEmail) {
-        return null;
+    public ResponseEntity<User> listUser(@PathVariable( "userEmail" ) String userEmail) {
+        return ResponseEntity.ok(null);
     }
 
     @RequestMapping(value = "/users/{userEmail}/password",method=PUT)
     @ResponseBody
-    public void changeUserPassword(@PathVariable( "userEmail" ) String userEmail,@RequestBody ChangePasswordForm changePasswordForm) {
-
+    public ResponseEntity changeUserPassword(@PathVariable( "userEmail" ) String userEmail,@RequestBody ChangePasswordForm changePasswordForm) {
+        return ResponseEntity.ok(null);
     }
 
     @RequestMapping(value = "/users/{userEmail}/date",method=PUT)
     @ResponseBody
-    public void changeUserJoinDate(@PathVariable( "userEmail" ) String userEmail,@RequestBody ChangeDateForm changeDateForm) {
-
+    public ResponseEntity changeUserJoinDate(@PathVariable( "userEmail" ) String userEmail,@RequestBody ChangeDateForm changeDateForm) {
+        return ResponseEntity.ok(null);
     }
 
     @RequestMapping(value = "/users/{userEmail}",method=POST)
     @ResponseBody
-    public void createUser(@PathVariable( "userEmail" ) String userEmail,@RequestBody User user) {
-
+    public ResponseEntity createUser(@PathVariable( "userEmail" ) String userEmail,@RequestBody User user) {
+        return ResponseEntity.ok(null);
     }
 
     @RequestMapping(value = "/users/{userEmail}",method=DELETE)
     @ResponseBody
-    public void deleteUser(@PathVariable( "userEmail" ) String userEmail) {
-
+    public ResponseEntity deleteUser(@PathVariable( "userEmail" ) String userEmail) {
+        return ResponseEntity.ok(null);
     }
 
     //******************************************************************************************************************
@@ -65,86 +65,86 @@ public class UserController {
 
     @RequestMapping(value = "/yamas",method=GET)
     @ResponseBody
-    public List<YamasEntry> listAllYamasEntries() {
-        return null;
+    public ResponseEntity<List<YamasEntry>> listAllYamasEntries() {
+        return ResponseEntity.ok(null);
     }
 
     @RequestMapping(value = "/niyamas",method=GET)
     @ResponseBody
-    public List<NiyamasEntry> listAllNiyamasEntries() {
-        return null;
+    public ResponseEntity<List<NiyamasEntry>> listAllNiyamasEntries() {
+        return ResponseEntity.ok(null);
     }
 
     @RequestMapping(value = "/yamas/{userEmail}",method=GET)
     @ResponseBody
-    public YamasEntry listYamasEntriesByUser(@PathVariable( "userEmail" ) String userEmail) {
-        return null;
+    public ResponseEntity<YamasEntry> listYamasEntriesByUser(@PathVariable( "userEmail" ) String userEmail) {
+        return ResponseEntity.ok(null);
     }
 
     @RequestMapping(value = "/niyamas/{userEmail}",method=GET)
     @ResponseBody
-    public NiyamasEntry listNiyamasEntriesByUser(@PathVariable( "userEmail" ) String userEmail) {
-        return null;
+    public ResponseEntity<NiyamasEntry> listNiyamasEntriesByUser(@PathVariable( "userEmail" ) String userEmail) {
+        return ResponseEntity.ok(null);
     }
 
     @RequestMapping(value = "/yamas/{date}",method=GET)
     @ResponseBody
-    public YamasEntry listYamasEntriesByDate(@PathVariable( "date" ) Date date) {
-        return null;
+    public ResponseEntity<YamasEntry> listYamasEntriesByDate(@PathVariable( "date" ) Date date) {
+        return ResponseEntity.ok(null);
     }
 
     @RequestMapping(value = "/niyamas/{date}",method=GET)
     @ResponseBody
-    public NiyamasEntry listNiyamasEntriesByDate(@PathVariable( "date" ) Date date) {
-        return null;
+    public ResponseEntity<NiyamasEntry> listNiyamasEntriesByDate(@PathVariable( "date" ) Date date) {
+        return ResponseEntity.ok(null);
     }
 
     @RequestMapping(value = "/yamas",method=GET)
     @ResponseBody
-    public YamasEntry listYamasEntry(@RequestBody YamasEntryForm yamasEntryForm) {
-        return null;
+    public ResponseEntity<YamasEntry> listYamasEntry(@RequestBody YamasEntryForm yamasEntryForm) {
+        return ResponseEntity.ok(null);
     }
 
     @RequestMapping(value = "/niyamas",method=GET)
     @ResponseBody
-    public NiyamasEntry listNiyamasEntry(@RequestBody NiyamasEntryForm niyamasEntryForm) {
-        return null;
+    public ResponseEntity<NiyamasEntry> listNiyamasEntry(@RequestBody NiyamasEntryForm niyamasEntryForm) {
+        return ResponseEntity.ok(null);
     }
 
     @RequestMapping(value = "/yamas",method=POST)
     @ResponseBody
-    public void createYamasEntry(@RequestBody YamasEntry yamasEntry) {
-
+    public ResponseEntity createYamasEntry(@RequestBody YamasEntry yamasEntry) {
+        return ResponseEntity.ok(null);
     }
 
     @RequestMapping(value = "/niyamas",method=POST)
     @ResponseBody
-    public void createNiyamasEntry(@RequestBody NiyamasEntry niyamasEntry) {
-
+    public ResponseEntity createNiyamasEntry(@RequestBody NiyamasEntry niyamasEntry) {
+        return ResponseEntity.ok(null);
     }
 
     @RequestMapping(value = "/yamas",method=PUT)
     @ResponseBody
-    public void changeYamasEntry(@RequestBody YamasEntry yamasEntry) {
-
+    public ResponseEntity changeYamasEntry(@RequestBody YamasEntry yamasEntry) {
+        return ResponseEntity.ok(null);
     }
 
     @RequestMapping(value = "/niyamas",method=PUT)
     @ResponseBody
-    public void changeNiyamasEntry(@RequestBody NiyamasEntry niyamasEntry) {
-
+    public ResponseEntity changeNiyamasEntry(@RequestBody NiyamasEntry niyamasEntry) {
+        return ResponseEntity.ok(null);
     }
 
     @RequestMapping(value = "/yamas",method=DELETE)
     @ResponseBody
-    public void deleteYamasEntry(@RequestBody YamasEntryForm yamasEntryForm) {
-
+    public ResponseEntity deleteYamasEntry(@RequestBody YamasEntryForm yamasEntryForm) {
+        return ResponseEntity.ok(null);
     }
 
     @RequestMapping(value = "/niyamas",method=DELETE)
     @ResponseBody
-    public void deleteNiyamasEntry(@RequestBody NiyamasEntryForm niyamasEntryForm) {
-
+    public ResponseEntity deleteNiyamasEntry(@RequestBody NiyamasEntryForm niyamasEntryForm) {
+        return ResponseEntity.ok(null);
     }
 
     //******************************************************************************************************************
@@ -153,44 +153,44 @@ public class UserController {
 
     @RequestMapping(value = "/incident",method=GET)
     @ResponseBody
-    public List<IncidentEntry> listIncidentEntries() {
-        return null;
+    public ResponseEntity<List<IncidentEntry>> listIncidentEntries() {
+        return ResponseEntity.ok(null);
     }
 
     @RequestMapping(value = "/incident/{userEmail}",method=GET)
     @ResponseBody
-    public IncidentEntry listIncidentEntriesByUser(@PathVariable( "userEmail" ) String userEmail) {
-        return null;
+    public ResponseEntity<IncidentEntry> listIncidentEntriesByUser(@PathVariable( "userEmail" ) String userEmail) {
+        return ResponseEntity.ok(null);
     }
 
     @RequestMapping(value = "/incident/{date}",method=GET)
     @ResponseBody
-    public IncidentEntry listIncidentEntriesByDate(@PathVariable( "date" ) Date date) {
-        return null;
+    public ResponseEntity<IncidentEntry> listIncidentEntriesByDate(@PathVariable( "date" ) Date date) {
+        return ResponseEntity.ok(null);
     }
 
     @RequestMapping(value = "/incident/{incidentId}",method=GET)
     @ResponseBody
-    public IncidentEntry listIncidentEntry(@PathVariable( "incidentId" ) String incidentId) {
-        return null;
+    public ResponseEntity<IncidentEntry> listIncidentEntry(@PathVariable( "incidentId" ) String incidentId) {
+        return ResponseEntity.ok(null);
     }
 
     @RequestMapping(value = "/incident/{incidentId}",method=PUT)
     @ResponseBody
-    public void changeIncidentEntry(@PathVariable( "incidentId" ) String incidentId, @RequestBody IncidentEntryForm incidentEntryForm) {
-
+    public ResponseEntity changeIncidentEntry(@PathVariable( "incidentId" ) String incidentId, @RequestBody IncidentEntryForm incidentEntryForm) {
+        return ResponseEntity.ok(null);
     }
 
     @RequestMapping(value = "/incident/{incidentId}",method=POST)
     @ResponseBody
-    public void createIncidentEntry(@PathVariable( "incidentId" ) String incidentId, @RequestBody IncidentEntryForm incidentEntryForm) {
-
+    public ResponseEntity createIncidentEntry(@PathVariable( "incidentId" ) String incidentId, @RequestBody IncidentEntryForm incidentEntryForm) {
+        return ResponseEntity.ok(null);
     }
 
     @RequestMapping(value = "/incident/{incidentId}",method=DELETE)
     @ResponseBody
-    public void deleteIncidentEntry(@PathVariable( "incidentId" ) String incidentId) {
-
+    public ResponseEntity deleteIncidentEntry(@PathVariable( "incidentId" ) String incidentId) {
+        return ResponseEntity.ok(null);
     }
 
 }
