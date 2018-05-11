@@ -1,6 +1,7 @@
 package net.youareatman.rest;
 
 import net.youareatman.model.*;
+import net.youareatman.model.forms.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,8 @@ public class UserController {
 
     //TODO add exceptions
     //TODO add https
+
+    //TODO proceed to construct PostgreSQL queries with http://javasampleapproach.com/spring-framework/use-spring-jpa-postgresql-spring-boot
 
     //******************************************************************************************************************
     //                                              User management

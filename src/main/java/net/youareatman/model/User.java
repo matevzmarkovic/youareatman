@@ -20,21 +20,45 @@ package net.youareatman.model;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.data.annotation.Id;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import java.io.Serializable;
 import java.util.Date;
 
-public class User
+@Entity
+@Table(name = "User")
+public class User implements Serializable
 {
-    private final Date joinDate;
-    private final String userEmail;
-    private final String passwordHash;
+    private static final long serialVersionUID = -3009157755542241606L;
+
+    @Column(name = "joinDate")
+    private Date joinDate;
+
+    @Id
+    @Column(name = "userEmail")
+    private String userEmail;
+
+    @Column(name = "passwordHash")
+    private String passwordHash;
 
     private static Logger logger = LogManager.getLogger(User.class);
+
+    protected User(){
+
+    }
 
     public User(Date joinDate, String userEmail, String passwordHash) {
         this.joinDate = joinDate;
         this.userEmail = userEmail;
         this.passwordHash = passwordHash;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("User[joinDate=%s, userEmail='%s', passwordHash='%s']", joinDate.toString(), userEmail, passwordHash);
     }
 
     public Date getJoinDate() {
@@ -47,5 +71,9 @@ public class User
 
     public String getPasswordHash() {
         return passwordHash;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 }

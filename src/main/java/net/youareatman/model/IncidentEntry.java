@@ -21,19 +21,41 @@ package net.youareatman.model;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
-public class IncidentEntry
+@Entity
+@Table(name = "Incident")
+public class IncidentEntry implements Serializable
 {
-    private final String incidentId;
-    private final Date entryDate;
-    private final String userEmail;
-    private final String antarayahType;
-    private final String sahabhuvaType;
-    private final String description;
+    private static final long serialVersionUID = -3009141732242241606L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "incidentId")
+    private String incidentId;
+
+    @Column(name = "entryDate")
+    private Date entryDate;
+
+    @Column(name = "userEmail")
+    private String userEmail;
+
+    @Column(name = "antarayahType")
+    private String antarayahType;
+
+    @Column(name = "sahabhuvaType")
+    private String sahabhuvaType;
+
+    @Column(name = "description")
+    private String description;
 
     private static Logger logger = LogManager.getLogger(IncidentEntry.class);
+
+    protected IncidentEntry() {
+
+    }
 
     public IncidentEntry(String incidentId, Date entryDate, String userEmail, String antarayahType, String sahabhuvaType, String description) {
         this.incidentId = incidentId;
@@ -44,5 +66,36 @@ public class IncidentEntry
         this.description = description;
     }
 
+    @Override
+    public String toString() {
+        return String.format("Incident[incidentId=%d, entryDate='%s', userEmail='%s', antarayahType='%s', sahabhuvaType='%s', description='%s']", incidentId, entryDate.toString(), userEmail, antarayahType, sahabhuvaType, description);
+    }
 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public String getIncidentId() {
+        return incidentId;
+    }
+
+    public Date getEntryDate() {
+        return entryDate;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public String getAntarayahType() {
+        return antarayahType;
+    }
+
+    public String getSahabhuvaType() {
+        return sahabhuvaType;
+    }
+
+    public String getDescription() {
+        return description;
+    }
 }

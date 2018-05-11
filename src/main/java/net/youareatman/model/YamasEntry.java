@@ -20,20 +20,48 @@ package net.youareatman.model;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.data.annotation.Id;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import java.io.Serializable;
 import java.util.Date;
 
-public class YamasEntry
+@Entity
+@Table(name = "Yamas")
+public class YamasEntry implements Serializable
 {
-    private final Date entryDate;
-    private final String userEmail;
-    private final boolean ahimsa;
-    private final boolean aparigraha;
-    private final boolean asteya;
-    private final boolean brahmacharya;
-    private final boolean satya;
+    private static final long serialVersionUID = -3309157342242245606L;
+
+    @Id
+    @Column(name = "entryDate")
+    private Date entryDate;
+
+    @Id
+    @Column(name = "userEmail")
+    private String userEmail;
+
+    @Column(name = "ahimsa")
+    private boolean ahimsa;
+
+    @Column(name = "aparigraha")
+    private boolean aparigraha;
+
+    @Column(name = "asteya")
+    private boolean asteya;
+
+    @Column(name = "brahmacharya")
+    private boolean brahmacharya;
+
+    @Column(name = "satya")
+    private boolean satya;
 
     private static Logger logger = LogManager.getLogger(YamasEntry.class);
+
+    protected YamasEntry(){
+
+    }
 
     public YamasEntry(Date entryDate, String userEmail, boolean ahimsa, boolean aparigraha, boolean asteya, boolean brahmacharya, boolean satya) {
         this.entryDate = entryDate;
@@ -43,6 +71,11 @@ public class YamasEntry
         this.asteya = asteya;
         this.brahmacharya = brahmacharya;
         this.satya = satya;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Yamas entry[entryDate='%s', userEmail='%s', ahimsa='%b', aparigraha='%b', asteya='%b', brahmacharya='%b', satya='%b']", entryDate.toString(), userEmail, ahimsa, aparigraha, asteya, brahmacharya, satya);
     }
 
     public Date getEntryDate() {
@@ -71,5 +104,9 @@ public class YamasEntry
 
     public boolean isSatya() {
         return satya;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 }

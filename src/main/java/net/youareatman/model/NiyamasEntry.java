@@ -20,20 +20,48 @@ package net.youareatman.model;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.data.annotation.Id;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import java.io.Serializable;
 import java.util.Date;
 
-public class NiyamasEntry
+@Entity
+@Table(name = "Niyamas")
+public class NiyamasEntry implements Serializable
 {
-    private final Date entryDate;
-    private final String userEmail;
-    private final boolean ishvaraPranidhana;
-    private final boolean santosha;
-    private final boolean shaucha;
-    private final boolean svadhyaya;
-    private final boolean tapas;
+    private static final long serialVersionUID = -3009157732234241656L;
+
+    @Id
+    @Column(name = "entryDate")
+    private Date entryDate;
+
+    @Id
+    @Column(name = "userEmail")
+    private String userEmail;
+
+    @Column(name = "ishvaraPranidhana")
+    private boolean ishvaraPranidhana;
+
+    @Column(name = "santosha")
+    private boolean santosha;
+
+    @Column(name = "shaucha")
+    private boolean shaucha;
+
+    @Column(name = "svadhyaya")
+    private boolean svadhyaya;
+
+    @Column(name = "tapas")
+    private boolean tapas;
 
     private static Logger logger = LogManager.getLogger(NiyamasEntry.class);
+
+    protected NiyamasEntry(){
+
+    }
 
     public NiyamasEntry(Date entryDate, String userEmail, boolean ishvaraPranidhana, boolean santosha, boolean shaucha, boolean svadhyaya, boolean tapas) {
         this.entryDate = entryDate;
@@ -43,6 +71,11 @@ public class NiyamasEntry
         this.shaucha = shaucha;
         this.svadhyaya = svadhyaya;
         this.tapas = tapas;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Niyamas entry[entryDate='%s', userEmail='%s', ishvaraPranidhana='%b', santosha='%b', shaucha='%b', svadhyaya='%b', tapas='%b']", entryDate.toString(), userEmail, ishvaraPranidhana, santosha, shaucha, svadhyaya, tapas);
     }
 
     public Date getEntryDate() {
@@ -71,5 +104,9 @@ public class NiyamasEntry
 
     public boolean isTapas() {
         return tapas;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 }
