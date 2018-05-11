@@ -16,25 +16,24 @@
     Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
 
-package net.youareatman.model;
+package net.youareatman.model.forms;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Date;
 
-public class YamasEntryForm
+public class ChangeDateForm
 {
-    private final Date entryDate;
-    private final String userEmail;
+    private final Date joinDate;
 
+    private static Logger logger = LogManager.getLogger(ChangeDateForm.class);
 
-    private static Logger logger = LogManager.getLogger(YamasEntryForm.class);
-
-    public YamasEntryForm(Date entryDate, String userEmail) {
-        this.entryDate = entryDate;
-        this.userEmail = userEmail;
+    public ChangeDateForm(Date joinDate) {
+        this.joinDate = joinDate;
     }
 
-
+    public Date getJoinDate() {
+        return joinDate;
+    }
 }

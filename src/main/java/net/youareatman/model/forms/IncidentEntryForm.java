@@ -16,24 +16,31 @@
     Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
 
-package net.youareatman.model;
+package net.youareatman.model.forms;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Date;
 
-public class ChangePasswordForm
+public class IncidentEntryForm
 {
-    private final String password;
+    private final Date entryDate;
+    private final String userEmail;
+    private final String antarayahType;
+    private final String sahabhuvaType;
+    private final String description;
 
-    private static Logger logger = LogManager.getLogger(ChangePasswordForm.class);
 
-    public ChangePasswordForm(String password) {
-        this.password = password;
+    private static Logger logger = LogManager.getLogger(IncidentEntryForm.class);
+
+    public IncidentEntryForm(Date entryDate, String userEmail, String antarayahType, String sahabhuvaType, String description) {
+        this.entryDate = entryDate;
+        this.userEmail = userEmail;
+        this.antarayahType = antarayahType;
+        this.sahabhuvaType = sahabhuvaType;
+        this.description = description;
     }
 
-    public String getPassword() {
-        return password;
-    }
+
 }
