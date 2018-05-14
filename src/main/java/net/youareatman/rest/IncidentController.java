@@ -1,0 +1,74 @@
+package net.youareatman.rest;
+
+import net.youareatman.model.IncidentEntry;
+import net.youareatman.model.NiyamasEntry;
+import net.youareatman.model.User;
+import net.youareatman.model.YamasEntry;
+import net.youareatman.model.forms.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Date;
+import java.util.List;
+
+import static org.springframework.web.bind.annotation.RequestMethod.*;
+
+@RestController
+public class IncidentController {
+
+    private static Logger logger = LogManager.getLogger(IncidentController.class);
+
+    //TODO add exceptions
+    //TODO add https
+
+    //TODO proceed to construct PostgreSQL queries with http://javasampleapproach.com/spring-framework/use-spring-jpa-postgresql-spring-boot
+
+    //******************************************************************************************************************
+    //                                              Incident management
+    //******************************************************************************************************************
+
+    @RequestMapping(value = "/incident",method=GET)
+    @ResponseBody
+    public ResponseEntity<List<IncidentEntry>> listIncidentEntries() {
+        return ResponseEntity.ok(null);
+    }
+
+    @RequestMapping(value = "/incident/{userEmail}",method=GET)
+    @ResponseBody
+    public ResponseEntity<IncidentEntry> listIncidentEntriesByUser(@PathVariable( "userEmail" ) String userEmail) {
+        return ResponseEntity.ok(null);
+    }
+
+    @RequestMapping(value = "/incident/{date}",method=GET)
+    @ResponseBody
+    public ResponseEntity<IncidentEntry> listIncidentEntriesByDate(@PathVariable( "date" ) Date date) {
+        return ResponseEntity.ok(null);
+    }
+
+    @RequestMapping(value = "/incident/{incidentId}",method=GET)
+    @ResponseBody
+    public ResponseEntity<IncidentEntry> listIncidentEntry(@PathVariable( "incidentId" ) String incidentId) {
+        return ResponseEntity.ok(null);
+    }
+
+    @RequestMapping(value = "/incident/{incidentId}",method=PUT)
+    @ResponseBody
+    public ResponseEntity changeIncidentEntry(@PathVariable( "incidentId" ) String incidentId, @RequestBody IncidentEntryForm incidentEntryForm) {
+        return ResponseEntity.ok(null);
+    }
+
+    @RequestMapping(value = "/incident/{incidentId}",method=POST)
+    @ResponseBody
+    public ResponseEntity createIncidentEntry(@PathVariable( "incidentId" ) String incidentId, @RequestBody IncidentEntryForm incidentEntryForm) {
+        return ResponseEntity.ok(null);
+    }
+
+    @RequestMapping(value = "/incident/{incidentId}",method=DELETE)
+    @ResponseBody
+    public ResponseEntity deleteIncidentEntry(@PathVariable( "incidentId" ) String incidentId) {
+        return ResponseEntity.ok(null);
+    }
+
+}
