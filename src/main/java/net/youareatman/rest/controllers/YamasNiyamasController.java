@@ -106,24 +106,6 @@ public class YamasNiyamasController {
 
     @RequestMapping(value = "/yamas",method=POST)
     @ResponseBody
-    public ResponseEntity createYamasEntry(@RequestBody YamasEntry yamasEntry) {
-
-        yamasNiyamasService.createYamasEntry(yamasEntry);
-
-        return ResponseEntity.ok(null);
-    }
-
-    @RequestMapping(value = "/niyamas",method=POST)
-    @ResponseBody
-    public ResponseEntity createNiyamasEntry(@RequestBody NiyamasEntry niyamasEntry) {
-
-        yamasNiyamasService.createNiyamasEntry(niyamasEntry);
-
-        return ResponseEntity.ok(null);
-    }
-
-    @RequestMapping(value = "/yamas",method=PUT)
-    @ResponseBody
     public ResponseEntity changeYamasEntry(@RequestBody YamasEntry yamasEntry) {
 
         yamasNiyamasService.changeYamasEntry(yamasEntry);
@@ -131,11 +113,29 @@ public class YamasNiyamasController {
         return ResponseEntity.ok(null);
     }
 
-    @RequestMapping(value = "/niyamas",method=PUT)
+    @RequestMapping(value = "/niyamas",method=POST)
     @ResponseBody
     public ResponseEntity changeNiyamasEntry(@RequestBody NiyamasEntry niyamasEntry) {
 
         yamasNiyamasService.changeNiyamasEntry(niyamasEntry);
+
+        return ResponseEntity.ok(null);
+    }
+
+    @RequestMapping(value = "/yamas",method=PUT)
+    @ResponseBody
+    public ResponseEntity createYamasEntry(@RequestBody YamasEntry yamasEntry) {
+
+        yamasNiyamasService.createYamasEntry(yamasEntry);
+
+        return ResponseEntity.ok(null);
+    }
+
+    @RequestMapping(value = "/niyamas",method=PUT)
+    @ResponseBody
+    public ResponseEntity createNiyamasEntry(@RequestBody NiyamasEntry niyamasEntry) {
+
+        yamasNiyamasService.createNiyamasEntry(niyamasEntry);
 
         return ResponseEntity.ok(null);
     }

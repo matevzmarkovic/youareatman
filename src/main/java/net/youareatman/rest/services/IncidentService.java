@@ -1,7 +1,6 @@
 package net.youareatman.rest.services;
 
 import net.youareatman.model.IncidentEntry;
-import net.youareatman.model.forms.IncidentEntryForm;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
@@ -30,11 +29,15 @@ public class IncidentService {
         return null;
     }
 
-    public IncidentEntry changeIncidentEntry(String incidentId, IncidentEntryForm incidentEntryForm){
+    public IncidentEntry changeIncidentEntry(String incidentId, IncidentEntry incidentEntry){
+        //incidentEntry->incidentId is never overwritten by the supplied value in incidentEntry input.
+
         return null;
     }
 
-    public IncidentEntry createIncidentEntry(String incidentId, IncidentEntryForm incidentEntryForm){
+    public IncidentEntry createIncidentEntry(IncidentEntry incidentEntry){
+        //incidentEntry->incidentId is ignored, as incidentId is created automatically.
+
         return null;
     }
 

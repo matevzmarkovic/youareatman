@@ -67,20 +67,20 @@ public class IncidentController {
         return ResponseEntity.ok(null);
     }
 
-    @RequestMapping(value = "/incident/{incidentId}",method=PUT)
+    @RequestMapping(value = "/incident",method=PUT)
     @ResponseBody
-    public ResponseEntity changeIncidentEntry(@PathVariable( "incidentId" ) String incidentId, @RequestBody IncidentEntryForm incidentEntryForm) {
+    public ResponseEntity createIncidentEntry(@RequestBody IncidentEntry incidentEntry) {
 
-        incidentService.changeIncidentEntry(incidentId, incidentEntryForm);
+        incidentService.createIncidentEntry(incidentEntry);
 
         return ResponseEntity.ok(null);
     }
 
     @RequestMapping(value = "/incident/{incidentId}",method=POST)
     @ResponseBody
-    public ResponseEntity createIncidentEntry(@PathVariable( "incidentId" ) String incidentId, @RequestBody IncidentEntryForm incidentEntryForm) {
+    public ResponseEntity changeIncidentEntry(@PathVariable( "incidentId" ) String incidentId, @RequestBody IncidentEntry incidentEntry) {
 
-        incidentService.createIncidentEntry(incidentId, incidentEntryForm);
+        incidentService.changeIncidentEntry(incidentId, incidentEntry);
 
         return ResponseEntity.ok(null);
     }

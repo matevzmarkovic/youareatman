@@ -48,7 +48,7 @@ public class UserController {
         return ResponseEntity.ok(null);
     }
 
-    @RequestMapping(value = "/users/{userEmail}/password",method=PUT)
+    @RequestMapping(value = "/users/{userEmail}/password",method=POST)
     @ResponseBody
     public ResponseEntity changeUserPassword(@PathVariable( "userEmail" ) String userEmail,@RequestBody ChangePasswordForm changePasswordForm) {
 
@@ -57,7 +57,7 @@ public class UserController {
         return ResponseEntity.ok(null);
     }
 
-    @RequestMapping(value = "/users/{userEmail}/date",method=PUT)
+    @RequestMapping(value = "/users/{userEmail}/date",method=POST)
     @ResponseBody
     public ResponseEntity changeUserJoinDate(@PathVariable( "userEmail" ) String userEmail,@RequestBody ChangeDateForm changeDateForm) {
 
@@ -66,11 +66,11 @@ public class UserController {
         return ResponseEntity.ok(null);
     }
 
-    @RequestMapping(value = "/users/{userEmail}",method=POST)
+    @RequestMapping(value = "/users",method=PUT)
     @ResponseBody
-    public ResponseEntity createUser(@PathVariable( "userEmail" ) String userEmail,@RequestBody User user) {
+    public ResponseEntity createUser(@RequestBody User user) {
 
-        userService.createUser(userEmail, user);
+        userService.createUser(user);
 
         return ResponseEntity.ok(null);
     }
