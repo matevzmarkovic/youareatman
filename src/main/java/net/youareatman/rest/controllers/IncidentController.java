@@ -1,12 +1,11 @@
-package net.youareatman.rest;
+package net.youareatman.rest.controllers;
 
 import net.youareatman.model.IncidentEntry;
-import net.youareatman.model.NiyamasEntry;
-import net.youareatman.model.User;
-import net.youareatman.model.YamasEntry;
 import net.youareatman.model.forms.*;
+import net.youareatman.rest.services.IncidentService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +16,9 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RestController
 public class IncidentController {
+
+    @Autowired
+    private IncidentService incidentService;
 
     private static Logger logger = LogManager.getLogger(IncidentController.class);
 
@@ -32,42 +34,63 @@ public class IncidentController {
     @RequestMapping(value = "/incident",method=GET)
     @ResponseBody
     public ResponseEntity<List<IncidentEntry>> listIncidentEntries() {
+
+        incidentService.listIncidentEntries();
+
         return ResponseEntity.ok(null);
     }
 
     @RequestMapping(value = "/incident/{userEmail}",method=GET)
     @ResponseBody
-    public ResponseEntity<IncidentEntry> listIncidentEntriesByUser(@PathVariable( "userEmail" ) String userEmail) {
+    public ResponseEntity<List<IncidentEntry>> listIncidentEntriesByUser(@PathVariable( "userEmail" ) String userEmail) {
+
+        incidentService.listIncidentEntriesByUser(userEmail);
+
         return ResponseEntity.ok(null);
     }
 
     @RequestMapping(value = "/incident/{date}",method=GET)
     @ResponseBody
-    public ResponseEntity<IncidentEntry> listIncidentEntriesByDate(@PathVariable( "date" ) Date date) {
+    public ResponseEntity<List<IncidentEntry>> listIncidentEntriesByDate(@PathVariable( "date" ) Date date) {
+
+        incidentService.listIncidentEntriesByDate(date);
+
         return ResponseEntity.ok(null);
     }
 
     @RequestMapping(value = "/incident/{incidentId}",method=GET)
     @ResponseBody
     public ResponseEntity<IncidentEntry> listIncidentEntry(@PathVariable( "incidentId" ) String incidentId) {
+
+        incidentService.listIncidentEntry(incidentId);
+
         return ResponseEntity.ok(null);
     }
 
     @RequestMapping(value = "/incident/{incidentId}",method=PUT)
     @ResponseBody
     public ResponseEntity changeIncidentEntry(@PathVariable( "incidentId" ) String incidentId, @RequestBody IncidentEntryForm incidentEntryForm) {
+
+        incidentService.changeIncidentEntry(incidentId, incidentEntryForm);
+
         return ResponseEntity.ok(null);
     }
 
     @RequestMapping(value = "/incident/{incidentId}",method=POST)
     @ResponseBody
     public ResponseEntity createIncidentEntry(@PathVariable( "incidentId" ) String incidentId, @RequestBody IncidentEntryForm incidentEntryForm) {
+
+        incidentService.createIncidentEntry(incidentId, incidentEntryForm);
+
         return ResponseEntity.ok(null);
     }
 
     @RequestMapping(value = "/incident/{incidentId}",method=DELETE)
     @ResponseBody
     public ResponseEntity deleteIncidentEntry(@PathVariable( "incidentId" ) String incidentId) {
+
+        incidentService.deleteIncidentEntry(incidentId);
+
         return ResponseEntity.ok(null);
     }
 
