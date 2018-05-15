@@ -22,9 +22,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.data.annotation.Id;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -34,13 +32,8 @@ public class YamasEntry implements Serializable
 {
     private static final long serialVersionUID = -3309157342242245606L;
 
-    @Id
-    @Column(name = "entryDate")
-    private Date entryDate;
-
-    @Id
-    @Column(name = "userEmail")
-    private String userEmail;
+    @EmbeddedId
+    YamasNiyamasEntryId entryId;
 
     @Column(name = "ahimsa")
     private boolean ahimsa;
@@ -63,9 +56,8 @@ public class YamasEntry implements Serializable
 
     }
 
-    public YamasEntry(Date entryDate, String userEmail, boolean ahimsa, boolean aparigraha, boolean asteya, boolean brahmacharya, boolean satya) {
-        this.entryDate = entryDate;
-        this.userEmail = userEmail;
+    public YamasEntry(YamasNiyamasEntryId entryId, boolean ahimsa, boolean aparigraha, boolean asteya, boolean brahmacharya, boolean satya) {
+        this.entryId = entryId;
         this.ahimsa = ahimsa;
         this.aparigraha = aparigraha;
         this.asteya = asteya;
@@ -73,17 +65,12 @@ public class YamasEntry implements Serializable
         this.satya = satya;
     }
 
-    @Override
-    public String toString() {
-        return String.format("Yamas entry[entryDate='%s', userEmail='%s', ahimsa='%b', aparigraha='%b', asteya='%b', brahmacharya='%b', satya='%b']", entryDate.toString(), userEmail, ahimsa, aparigraha, asteya, brahmacharya, satya);
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
-    public Date getEntryDate() {
-        return entryDate;
-    }
-
-    public String getUserEmail() {
-        return userEmail;
+    public YamasNiyamasEntryId getEntryId() {
+        return entryId;
     }
 
     public boolean isAhimsa() {
@@ -106,7 +93,27 @@ public class YamasEntry implements Serializable
         return satya;
     }
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
+    public void setEntryId(YamasNiyamasEntryId entryId) {
+        this.entryId = entryId;
+    }
+
+    public void setAhimsa(boolean ahimsa) {
+        this.ahimsa = ahimsa;
+    }
+
+    public void setAparigraha(boolean aparigraha) {
+        this.aparigraha = aparigraha;
+    }
+
+    public void setAsteya(boolean asteya) {
+        this.asteya = asteya;
+    }
+
+    public void setBrahmacharya(boolean brahmacharya) {
+        this.brahmacharya = brahmacharya;
+    }
+
+    public void setSatya(boolean satya) {
+        this.satya = satya;
     }
 }

@@ -23,6 +23,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.data.annotation.Id;
 
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.io.Serializable;
@@ -34,13 +35,8 @@ public class NiyamasEntry implements Serializable
 {
     private static final long serialVersionUID = -3009157732234241656L;
 
-    @Id
-    @Column(name = "entryDate")
-    private Date entryDate;
-
-    @Id
-    @Column(name = "userEmail")
-    private String userEmail;
+    @EmbeddedId
+    YamasNiyamasEntryId entryId;
 
     @Column(name = "ishvaraPranidhana")
     private boolean ishvaraPranidhana;
@@ -63,9 +59,8 @@ public class NiyamasEntry implements Serializable
 
     }
 
-    public NiyamasEntry(Date entryDate, String userEmail, boolean ishvaraPranidhana, boolean santosha, boolean shaucha, boolean svadhyaya, boolean tapas) {
-        this.entryDate = entryDate;
-        this.userEmail = userEmail;
+    public NiyamasEntry(YamasNiyamasEntryId entryId, boolean ishvaraPranidhana, boolean santosha, boolean shaucha, boolean svadhyaya, boolean tapas) {
+        this.entryId = entryId;
         this.ishvaraPranidhana = ishvaraPranidhana;
         this.santosha = santosha;
         this.shaucha = shaucha;
@@ -73,17 +68,12 @@ public class NiyamasEntry implements Serializable
         this.tapas = tapas;
     }
 
-    @Override
-    public String toString() {
-        return String.format("Niyamas entry[entryDate='%s', userEmail='%s', ishvaraPranidhana='%b', santosha='%b', shaucha='%b', svadhyaya='%b', tapas='%b']", entryDate.toString(), userEmail, ishvaraPranidhana, santosha, shaucha, svadhyaya, tapas);
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
-    public Date getEntryDate() {
-        return entryDate;
-    }
-
-    public String getUserEmail() {
-        return userEmail;
+    public YamasNiyamasEntryId getEntryId() {
+        return entryId;
     }
 
     public boolean isIshvaraPranidhana() {
@@ -106,7 +96,27 @@ public class NiyamasEntry implements Serializable
         return tapas;
     }
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
+    public void setEntryId(YamasNiyamasEntryId entryId) {
+        this.entryId = entryId;
+    }
+
+    public void setIshvaraPranidhana(boolean ishvaraPranidhana) {
+        this.ishvaraPranidhana = ishvaraPranidhana;
+    }
+
+    public void setSantosha(boolean santosha) {
+        this.santosha = santosha;
+    }
+
+    public void setShaucha(boolean shaucha) {
+        this.shaucha = shaucha;
+    }
+
+    public void setSvadhyaya(boolean svadhyaya) {
+        this.svadhyaya = svadhyaya;
+    }
+
+    public void setTapas(boolean tapas) {
+        this.tapas = tapas;
     }
 }

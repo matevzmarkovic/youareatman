@@ -39,8 +39,9 @@ public class IncidentEntry implements Serializable
     @Column(name = "entryDate")
     private Date entryDate;
 
-    @Column(name = "userEmail")
-    private String userEmail;
+    @ManyToOne
+    @JoinColumn(name = "Email")
+    private User user;
 
     @Column(name = "antarayahType")
     private String antarayahType;
@@ -57,10 +58,10 @@ public class IncidentEntry implements Serializable
 
     }
 
-    public IncidentEntry(String incidentId, Date entryDate, String userEmail, String antarayahType, String sahabhuvaType, String description) {
+    public IncidentEntry(String incidentId, Date entryDate, User user, String antarayahType, String sahabhuvaType, String description) {
         this.incidentId = incidentId;
         this.entryDate = entryDate;
-        this.userEmail = userEmail;
+        this.user = user;
         this.antarayahType = antarayahType;
         this.sahabhuvaType = sahabhuvaType;
         this.description = description;
@@ -68,7 +69,7 @@ public class IncidentEntry implements Serializable
 
     @Override
     public String toString() {
-        return String.format("Incident[incidentId=%d, entryDate='%s', userEmail='%s', antarayahType='%s', sahabhuvaType='%s', description='%s']", incidentId, entryDate.toString(), userEmail, antarayahType, sahabhuvaType, description);
+        return String.format("Incident[incidentId=%d, entryDate='%s', userEmail='%s', antarayahType='%s', sahabhuvaType='%s', description='%s']", incidentId, entryDate.toString(), user.getUserEmail(), antarayahType, sahabhuvaType, description);
     }
 
     public static long getSerialVersionUID() {
@@ -83,8 +84,8 @@ public class IncidentEntry implements Serializable
         return entryDate;
     }
 
-    public String getUserEmail() {
-        return userEmail;
+    public User getUser() {
+        return user;
     }
 
     public String getAntarayahType() {
@@ -97,5 +98,29 @@ public class IncidentEntry implements Serializable
 
     public String getDescription() {
         return description;
+    }
+
+    public void setIncidentId(String incidentId) {
+        this.incidentId = incidentId;
+    }
+
+    public void setEntryDate(Date entryDate) {
+        this.entryDate = entryDate;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void setAntarayahType(String antarayahType) {
+        this.antarayahType = antarayahType;
+    }
+
+    public void setSahabhuvaType(String sahabhuvaType) {
+        this.sahabhuvaType = sahabhuvaType;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
