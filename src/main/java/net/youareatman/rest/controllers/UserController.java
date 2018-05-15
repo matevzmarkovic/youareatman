@@ -1,5 +1,6 @@
 package net.youareatman.rest.controllers;
 
+import net.youareatman.exceptions.GenericYouAreAtmanException;
 import net.youareatman.model.*;
 import net.youareatman.model.forms.*;
 import net.youareatman.rest.services.UserService;
@@ -21,10 +22,8 @@ public class UserController {
 
     private static Logger logger = LogManager.getLogger(UserController.class);
 
-    //TODO add exceptions
     //TODO add https
-
-    //TODO proceed to construct PostgreSQL queries with http://javasampleapproach.com/spring-framework/use-spring-jpa-postgresql-spring-boot
+    //TODO add better exception handling
 
     //******************************************************************************************************************
     //                                              User management
@@ -34,36 +33,46 @@ public class UserController {
     @ResponseBody
     public ResponseEntity<List<User>> listUsers() {
 
-        userService.listUsers();
+        List<User> users = userService.listUsers();
 
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok(users);
     }
 
     @RequestMapping(value = "/users/{userEmail}",method=GET)
     @ResponseBody
     public ResponseEntity<User> listUser(@PathVariable( "userEmail" ) String userEmail) {
+        try {
+            User user = userService.listUser(userEmail);
+            return ResponseEntity.ok(user);
+        } catch (GenericYouAreAtmanException e) {
+            return (ResponseEntity<User>) ResponseEntity.badRequest();
+        }
 
-        userService.listUser(userEmail);
-
-        return ResponseEntity.ok(null);
     }
 
     @RequestMapping(value = "/users/{userEmail}/password",method=POST)
     @ResponseBody
     public ResponseEntity changeUserPassword(@PathVariable( "userEmail" ) String userEmail,@RequestBody ChangePasswordForm changePasswordForm) {
 
-        userService.changePassword(userEmail, changePasswordForm);
-
-        return ResponseEntity.ok(null);
+        try {
+            User user = userService.changePassword(userEmail, changePasswordForm);
+            return ResponseEntity.ok(user);
+        } catch (GenericYouAreAtmanException e) {
+            return (ResponseEntity<User>) ResponseEntity.badRequest();
+        }
     }
 
     @RequestMapping(value = "/users/{userEmail}/date",method=POST)
     @ResponseBody
     public ResponseEntity changeUserJoinDate(@PathVariable( "userEmail" ) String userEmail,@RequestBody ChangeDateForm changeDateForm) {
 
-        userService.changeUserJoinDate(userEmail, changeDateForm);
-
-        return ResponseEntity.ok(null);
+        try{
+            User user = userService.changeUserJoinDate(userEmail, changeDateForm);
+            return ResponseEntity.ok(user);
+        }
+        catch(GenericYouAreAtmanException e){
+            return (ResponseEntity<User>) ResponseEntity.badRequest();
+        }
     }
 
     @RequestMapping(value = "/users",method=PUT)
@@ -72,16 +81,20 @@ public class UserController {
 
         userService.createUser(user);
 
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok(user);
     }
 
     @RequestMapping(value = "/users/{userEmail}",method=DELETE)
     @ResponseBody
     public ResponseEntity deleteUser(@PathVariable( "userEmail" ) String userEmail) {
 
-        userService.deleteUser(userEmail);
+        try {
+            User user = userService.deleteUser(userEmail);
+            return ResponseEntity.ok(user);
+        } catch (GenericYouAreAtmanException e) {
+            return (ResponseEntity<User>) ResponseEntity.badRequest();
+        }
 
-        return ResponseEntity.ok(null);
     }
 
 }
