@@ -27,8 +27,8 @@ import java.util.Date;
 import java.util.Set;
 
 @Entity
-@Table(name = "User")
-public class User implements Serializable
+@Table(name = "AtmanUser")
+public class AtmanUser implements Serializable
 {
     private static final long serialVersionUID = -3009157755542241606L;
 
@@ -45,19 +45,19 @@ public class User implements Serializable
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<IncidentEntry> incidentEntrySet;
 
-    private static Logger logger = LogManager.getLogger(User.class);
+    private static Logger logger = LogManager.getLogger(AtmanUser.class);
 
-    protected User(){
+    protected AtmanUser(){
 
     }
 
-    public User(Date joinDate, String userEmail, String passwordHash) {
+    public AtmanUser(Date joinDate, String userEmail, String passwordHash) {
         this.joinDate = joinDate;
         this.userEmail = userEmail;
         this.passwordHash = passwordHash;
     }
 
-    public User(Date joinDate, String userEmail, String passwordHash, Set<IncidentEntry> incidentEntrySet) {
+    public AtmanUser(Date joinDate, String userEmail, String passwordHash, Set<IncidentEntry> incidentEntrySet) {
         this.joinDate = joinDate;
         this.userEmail = userEmail;
         this.passwordHash = passwordHash;
@@ -66,7 +66,7 @@ public class User implements Serializable
 
     @Override
     public String toString() {
-        return String.format("User[joinDate=%s, userEmail='%s', passwordHash='%s']", joinDate.toString(), userEmail, passwordHash);
+        return String.format("AtmanUser[joinDate=%s, userEmail='%s', passwordHash='%s']", joinDate.toString(), userEmail, passwordHash);
     }
 
     public Date getJoinDate() {

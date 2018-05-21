@@ -41,7 +41,7 @@ public class IncidentEntry implements Serializable
 
     @ManyToOne
     @JoinColumn(name = "Email")
-    private User user;
+    private AtmanUser atmanUser;
 
     @Column(name = "antarayahType")
     private String antarayahType;
@@ -58,10 +58,10 @@ public class IncidentEntry implements Serializable
 
     }
 
-    public IncidentEntry(String incidentId, Date entryDate, User user, String antarayahType, String sahabhuvaType, String description) {
+    public IncidentEntry(String incidentId, Date entryDate, AtmanUser atmanUser, String antarayahType, String sahabhuvaType, String description) {
         this.incidentId = incidentId;
         this.entryDate = entryDate;
-        this.user = user;
+        this.atmanUser = atmanUser;
         this.antarayahType = antarayahType;
         this.sahabhuvaType = sahabhuvaType;
         this.description = description;
@@ -69,7 +69,7 @@ public class IncidentEntry implements Serializable
 
     @Override
     public String toString() {
-        return String.format("Incident[incidentId=%d, entryDate='%s', userEmail='%s', antarayahType='%s', sahabhuvaType='%s', description='%s']", incidentId, entryDate.toString(), user.getUserEmail(), antarayahType, sahabhuvaType, description);
+        return String.format("Incident[incidentId=%d, entryDate='%s', userEmail='%s', antarayahType='%s', sahabhuvaType='%s', description='%s']", incidentId, entryDate.toString(), atmanUser.getUserEmail(), antarayahType, sahabhuvaType, description);
     }
 
     public static long getSerialVersionUID() {
@@ -84,8 +84,8 @@ public class IncidentEntry implements Serializable
         return entryDate;
     }
 
-    public User getUser() {
-        return user;
+    public AtmanUser getAtmanUser() {
+        return atmanUser;
     }
 
     public String getAntarayahType() {
@@ -108,8 +108,8 @@ public class IncidentEntry implements Serializable
         this.entryDate = entryDate;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(AtmanUser atmanUser) {
+        this.atmanUser = atmanUser;
     }
 
     public void setAntarayahType(String antarayahType) {

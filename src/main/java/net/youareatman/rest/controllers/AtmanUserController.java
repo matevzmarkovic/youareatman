@@ -3,7 +3,7 @@ package net.youareatman.rest.controllers;
 import net.youareatman.exceptions.GenericYouAreAtmanException;
 import net.youareatman.model.*;
 import net.youareatman.model.forms.*;
-import net.youareatman.rest.services.UserService;
+import net.youareatman.rest.services.AtmanUserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +15,12 @@ import java.util.List;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RestController
-public class UserController {
+public class AtmanUserController {
 
     @Autowired
-    private UserService userService;
+    private AtmanUserService atmanUserService;
 
-    private static Logger logger = LogManager.getLogger(UserController.class);
+    private static Logger logger = LogManager.getLogger(AtmanUserController.class);
 
     //TODO add https
     //TODO add better exception handling
@@ -29,70 +29,70 @@ public class UserController {
     //                                              User management
     //******************************************************************************************************************
 
-    @RequestMapping(value = "/users",method=GET)
+    @RequestMapping(value = "/atmanusers",method=GET)
     @ResponseBody
-    public ResponseEntity<List<User>> listUsers() {
+    public ResponseEntity<List<AtmanUser>> listUsers() {
 
-        List<User> users = userService.listUsers();
+        List<AtmanUser> users = atmanUserService.listUsers();
 
         return ResponseEntity.ok(users);
     }
 
-    @RequestMapping(value = "/users/{userEmail}",method=GET)
+    @RequestMapping(value = "/atmanusers/{userEmail}",method=GET)
     @ResponseBody
-    public ResponseEntity<User> listUser(@PathVariable( "userEmail" ) String userEmail) {
+    public ResponseEntity<AtmanUser> listUser(@PathVariable( "userEmail" ) String userEmail) {
         try {
-            User user = userService.listUser(userEmail);
+            AtmanUser user = atmanUserService.listUser(userEmail);
             return ResponseEntity.ok(user);
         } catch (GenericYouAreAtmanException e) {
-            return (ResponseEntity<User>) ResponseEntity.badRequest();
+            return (ResponseEntity<AtmanUser>) ResponseEntity.badRequest();
         }
 
     }
 
-    @RequestMapping(value = "/users/{userEmail}/password",method=POST)
+    @RequestMapping(value = "/atmanusers/{userEmail}/password",method=POST)
     @ResponseBody
     public ResponseEntity changeUserPassword(@PathVariable( "userEmail" ) String userEmail,@RequestBody ChangePasswordForm changePasswordForm) {
 
         try {
-            User user = userService.changePassword(userEmail, changePasswordForm);
+            AtmanUser user = atmanUserService.changePassword(userEmail, changePasswordForm);
             return ResponseEntity.ok(user);
         } catch (GenericYouAreAtmanException e) {
-            return (ResponseEntity<User>) ResponseEntity.badRequest();
+            return (ResponseEntity<AtmanUser>) ResponseEntity.badRequest();
         }
     }
 
-    @RequestMapping(value = "/users/{userEmail}/date",method=POST)
+    @RequestMapping(value = "/atmanusers/{userEmail}/date",method=POST)
     @ResponseBody
     public ResponseEntity changeUserJoinDate(@PathVariable( "userEmail" ) String userEmail,@RequestBody ChangeDateForm changeDateForm) {
 
         try{
-            User user = userService.changeUserJoinDate(userEmail, changeDateForm);
+            AtmanUser user = atmanUserService.changeUserJoinDate(userEmail, changeDateForm);
             return ResponseEntity.ok(user);
         }
         catch(GenericYouAreAtmanException e){
-            return (ResponseEntity<User>) ResponseEntity.badRequest();
+            return (ResponseEntity<AtmanUser>) ResponseEntity.badRequest();
         }
     }
 
-    @RequestMapping(value = "/users",method=PUT)
+    @RequestMapping(value = "/atmanusers",method=PUT)
     @ResponseBody
-    public ResponseEntity createUser(@RequestBody User user) {
+    public ResponseEntity createUser(@RequestBody AtmanUser user) {
 
-        userService.createUser(user);
+        atmanUserService.createUser(user);
 
         return ResponseEntity.ok(user);
     }
 
-    @RequestMapping(value = "/users/{userEmail}",method=DELETE)
+    @RequestMapping(value = "/atmanusers/{userEmail}",method=DELETE)
     @ResponseBody
     public ResponseEntity deleteUser(@PathVariable( "userEmail" ) String userEmail) {
 
         try {
-            User user = userService.deleteUser(userEmail);
+            AtmanUser user = atmanUserService.deleteUser(userEmail);
             return ResponseEntity.ok(user);
         } catch (GenericYouAreAtmanException e) {
-            return (ResponseEntity<User>) ResponseEntity.badRequest();
+            return (ResponseEntity<AtmanUser>) ResponseEntity.badRequest();
         }
 
     }
