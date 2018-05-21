@@ -42,7 +42,7 @@ public class User implements Serializable
     @Column(name = "passwordHash")
     private String passwordHash;
 
-    @OneToMany(mappedBy = "User", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<IncidentEntry> incidentEntrySet;
 
     private static Logger logger = LogManager.getLogger(User.class);
