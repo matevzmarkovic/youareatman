@@ -13,7 +13,6 @@ public class YamasNiyamasEntryId implements Serializable {
     @Column(name = "entryDate")
     private Date entryDate;
 
-    @Column(name = "userEmail")
     @ManyToOne
     @JoinColumn(name = "Email")
     private String userEmail;
