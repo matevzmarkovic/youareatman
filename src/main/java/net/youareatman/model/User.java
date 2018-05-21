@@ -45,12 +45,6 @@ public class User implements Serializable
     @OneToMany(mappedBy = "User", cascade = CascadeType.ALL)
     private Set<IncidentEntry> incidentEntrySet;
 
-    @OneToMany(mappedBy = "User", cascade = CascadeType.ALL)
-    private Set<YamasEntry> yamasEntrySet;
-
-    @OneToMany(mappedBy = "User", cascade = CascadeType.ALL)
-    private Set<NiyamasEntry> niyamasEntrySet;
-
     private static Logger logger = LogManager.getLogger(User.class);
 
     protected User(){
@@ -63,13 +57,11 @@ public class User implements Serializable
         this.passwordHash = passwordHash;
     }
 
-    public User(Date joinDate, String userEmail, String passwordHash, Set<IncidentEntry> incidentEntrySet, Set<YamasEntry> yamasEntrySet, Set<NiyamasEntry> niyamasEntrySet) {
+    public User(Date joinDate, String userEmail, String passwordHash, Set<IncidentEntry> incidentEntrySet) {
         this.joinDate = joinDate;
         this.userEmail = userEmail;
         this.passwordHash = passwordHash;
         this.incidentEntrySet = incidentEntrySet;
-        this.yamasEntrySet = yamasEntrySet;
-        this.niyamasEntrySet = niyamasEntrySet;
     }
 
     @Override
@@ -93,14 +85,6 @@ public class User implements Serializable
         return incidentEntrySet;
     }
 
-    public Set<YamasEntry> getYamasEntrySet() {
-        return yamasEntrySet;
-    }
-
-    public Set<NiyamasEntry> getNiyamasEntrySet() {
-        return niyamasEntrySet;
-    }
-
     public void setJoinDate(Date joinDate) {
         this.joinDate = joinDate;
     }
@@ -115,14 +99,6 @@ public class User implements Serializable
 
     public void setIncidentEntrySet(Set<IncidentEntry> incidentEntrySet) {
         this.incidentEntrySet = incidentEntrySet;
-    }
-
-    public void setYamasEntrySet(Set<YamasEntry> yamasEntrySet) {
-        this.yamasEntrySet = yamasEntrySet;
-    }
-
-    public void setNiyamasEntrySet(Set<NiyamasEntry> niyamasEntrySet) {
-        this.niyamasEntrySet = niyamasEntrySet;
     }
 
     public static long getSerialVersionUID() {
