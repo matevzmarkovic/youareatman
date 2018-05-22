@@ -51,16 +51,16 @@ public class AtmanUser implements Serializable
 
     }
 
-    public AtmanUser(Date joinDate, String userEmail, String passwordHash) {
+    public AtmanUser(Date joinDate, String userEmail, String password) {
         this.joinDate = joinDate;
         this.userEmail = userEmail;
-        this.passwordHash = passwordHash;
+        this.passwordHash = password;
     }
 
-    public AtmanUser(Date joinDate, String userEmail, String passwordHash, Set<IncidentEntry> incidentEntrySet) {
+    public AtmanUser(Date joinDate, String userEmail, String password, Set<IncidentEntry> incidentEntrySet) {
         this.joinDate = joinDate;
         this.userEmail = userEmail;
-        this.passwordHash = passwordHash;
+        this.passwordHash = password;
         this.incidentEntrySet = incidentEntrySet;
     }
 
