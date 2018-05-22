@@ -22,6 +22,10 @@ public class AtmanUserService {
 
     private static Logger logger = LogManager.getLogger(AtmanUserService.class);
 
+    public AtmanUserService(AtmanUserRepository atmanUserRepository) {
+        this.atmanUserRepository = atmanUserRepository;
+    }
+
     public List<AtmanUser> listUsers(){
         List<AtmanUser> users = new ArrayList<AtmanUser>();
         atmanUserRepository.findAll().forEach(users::add);
