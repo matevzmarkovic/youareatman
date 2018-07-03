@@ -31,7 +31,7 @@ public class IncidentController {
     //                                              Incident management
     //******************************************************************************************************************
 
-    @RequestMapping(value = "/incident",method=GET)
+    @RequestMapping(value = "/incidents",method=GET)
     @ResponseBody
     public ResponseEntity<List<IncidentEntry>> listIncidentEntries() {
 
@@ -40,7 +40,7 @@ public class IncidentController {
         return ResponseEntity.ok(null);
     }
 
-    @RequestMapping(value = "/incident/{userEmail}",method=GET)
+    @RequestMapping(value = "/incidents/{userEmail}",method=GET)
     @ResponseBody
     public ResponseEntity<List<IncidentEntry>> listIncidentEntriesByUser(@PathVariable( "userEmail" ) String userEmail) {
 
@@ -49,7 +49,7 @@ public class IncidentController {
         return ResponseEntity.ok(null);
     }
 
-    @RequestMapping(value = "/incident/{date}",method=GET)
+    @RequestMapping(value = "/incidents/{date}",method=GET)
     @ResponseBody
     public ResponseEntity<List<IncidentEntry>> listIncidentEntriesByDate(@PathVariable( "date" ) Date date) {
 
@@ -58,7 +58,7 @@ public class IncidentController {
         return ResponseEntity.ok(null);
     }
 
-    @RequestMapping(value = "/incident/{incidentId}",method=GET)
+    @RequestMapping(value = "/incidents/{incidentId}",method=GET)
     @ResponseBody
     public ResponseEntity<IncidentEntry> listIncidentEntry(@PathVariable( "incidentId" ) String incidentId) {
 
@@ -67,7 +67,7 @@ public class IncidentController {
         return ResponseEntity.ok(null);
     }
 
-    @RequestMapping(value = "/incident",method=PUT)
+    @RequestMapping(value = "/incidents",method=POST)
     @ResponseBody
     public ResponseEntity createIncidentEntry(@RequestBody IncidentEntry incidentEntry) {
 
@@ -76,7 +76,7 @@ public class IncidentController {
         return ResponseEntity.ok(null);
     }
 
-    @RequestMapping(value = "/incident/{incidentId}",method=POST)
+    @RequestMapping(value = "/incidents/{incidentId}",method=PUT)
     @ResponseBody
     public ResponseEntity changeIncidentEntry(@PathVariable( "incidentId" ) String incidentId, @RequestBody IncidentEntry incidentEntry) {
 
@@ -85,7 +85,7 @@ public class IncidentController {
         return ResponseEntity.ok(null);
     }
 
-    @RequestMapping(value = "/incident/{incidentId}",method=DELETE)
+    @RequestMapping(value = "/incidents/{incidentId}",method=DELETE)
     @ResponseBody
     public ResponseEntity deleteIncidentEntry(@PathVariable( "incidentId" ) String incidentId) {
 

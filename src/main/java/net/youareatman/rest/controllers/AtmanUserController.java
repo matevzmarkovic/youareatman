@@ -50,7 +50,7 @@ public class AtmanUserController {
 
     }
 
-    @RequestMapping(value = "/atmanusers/{userEmail}/password",method=POST)
+    @RequestMapping(value = "/atmanusers/{userEmail}/password",method=PUT)
     @ResponseBody
     public ResponseEntity changeUserPassword(@PathVariable( "userEmail" ) String userEmail,@RequestBody ChangePasswordForm changePasswordForm) {
 
@@ -62,7 +62,7 @@ public class AtmanUserController {
         }
     }
 
-    @RequestMapping(value = "/atmanusers/{userEmail}/date",method=POST)
+    @RequestMapping(value = "/atmanusers/{userEmail}/date",method=PUT)
     @ResponseBody
     public ResponseEntity changeUserJoinDate(@PathVariable( "userEmail" ) String userEmail,@RequestBody ChangeDateForm changeDateForm) {
 
@@ -75,7 +75,7 @@ public class AtmanUserController {
         }
     }
 
-    @RequestMapping(value = "/atmanusers",method=PUT)
+    @RequestMapping(value = "/atmanusers",method=POST)
     @ResponseBody
     public ResponseEntity createUser(@RequestBody AtmanUser user) {
 
