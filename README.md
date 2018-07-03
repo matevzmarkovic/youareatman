@@ -3,7 +3,66 @@ Purpose of this project is to enable spiritual aspirants on the Yoga path to tra
 
 It is based on the Yoga Sūtras of Patañjali, where it exposes the first two Yoga limbs. It provides the oportunity to the aspirant to note down, whether on a particular day he or she managed to follow all Yamas (moral imperatives) and Niyamas (virtuous habits, behaviors and observances); as well to describe particular obstacles (Antarayah) and possible correlates (Sahabhuva) that have manifested during the course of the day.
 
-# Implementation of the back end to the project
+## Curently implemented API calls
+*Substitute localhost:8443 in examples bellow with the address of your server.*
+
+### Collection: atmanusers
+GET a resource:
+
+```
+https://localhost:8443/YouAreAtman/atmanusers
+https://localhost:8443/YouAreAtman/atmanusers/{userEmail}
+```
+
+POST a resource (not idempotent!):
+
+```
+https://localhost:8443/YouAreAtman/atmanusers
+```
+
+PUT (modify) a resource:
+
+```
+https://localhost:8443/YouAreAtman/atmanusers/{userEmail}/password
+https://localhost:8443/YouAreAtman/atmanusers/{userEmail}/date
+```
+
+DELETE a resource:
+
+```
+https://localhost:8443/YouAreAtman/atmanusers
+```
+
+### Collection: incidents
+
+GET a resource:
+
+```
+https://localhost:8443/YouAreAtman/incidents
+https://localhost:8443/YouAreAtman/incidents/{userEmail}
+https://localhost:8443/YouAreAtman/incidents/{date}
+https://localhost:8443/YouAreAtman/incidents/{incidentId}
+```
+
+POST a resource (not idempotent!):
+
+```
+https://localhost:8443/YouAreAtman/incidents
+```
+
+PUT (modify) a resource:
+
+```
+https://localhost:8443/YouAreAtman/incidents/{incidentId}
+```
+
+DELETE a resource:
+
+```
+https://localhost:8443/YouAreAtman/incidents/{incidentId}
+```
+
+# Implementation details
 
 ## PostgreSQL database schema
 
