@@ -3,6 +3,20 @@ Purpose of this project is to enable spiritual aspirants on the Yoga path to tra
 
 It is based on the Yoga Sūtras of Patañjali, where it exposes the first two Yoga limbs. It provides the oportunity to the aspirant to note down, whether on a particular day he or she managed to follow all Yamas (moral imperatives) and Niyamas (virtuous habits, behaviors and observances); as well to describe particular obstacles (Antarayah) and possible correlates (Sahabhuva) that have manifested during the course of the day.
 
+# How to run
+First start the PostgreSQL docker instance
+```
+$cd util/
+$docker build -t youareatman_postgres .
+$docker run -d --name YouAreAtmanPostgres -e POSTGRES_PASSWORD=youareatman -e POSTGRES_USER=atman youareatman_postgres
+```
+
+Since a Spring Boot app is behind the veil just a simple standalone Java application, which uses the *public static void main* method, you run it by executing
+```
+???
+$mvn spring-boot:run
+```
+
 ## Curently implemented API calls
 *Substitute localhost:8443 in examples bellow with the address of your server.*
 
