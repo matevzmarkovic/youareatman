@@ -60,12 +60,30 @@
       <scope>runtime</scope>
     </dependency>
 
-    <!-- for the java.lang.NoClassDefFoundError: javax/xml/bind/JAXBException JavaEE classes not present in JDK6-9 -->
+    <!-- for the java.lang.NoClassDefFoundError: javax/xml/bind/JAXBException and other JavaEE classes not present in JDK9 -->
     <dependency>
       <groupId>javax.xml.bind</groupId>
       <artifactId>jaxb-api</artifactId>
       <version>2.3.0</version>
     </dependency>
+    <dependency>
+      <groupId>com.sun.xml.bind</groupId>
+      <artifactId>jaxb-core</artifactId>
+      <version>2.2.11</version>
+    </dependency>
+    <dependency>
+      <groupId>com.sun.xml.bind</groupId>
+      <artifactId>jaxb-impl</artifactId>
+      <version>2.2.11</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.activation</groupId>
+      <artifactId>activation</artifactId>
+      <version>1.1.1</version>
+    </dependency>
+    <!-- ****************************************** -->
+
+
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
