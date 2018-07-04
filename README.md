@@ -11,10 +11,15 @@ $docker build -t youareatman_postgres .
 $docker run -d --name YouAreAtmanPostgres -e POSTGRES_PASSWORD=youareatman -e POSTGRES_USER=atman youareatman_postgres
 ```
 
-Since a Spring Boot app is behind the veil just a simple standalone Java application, which uses the *public static void main* method, you run it by executing
+Since the You Are Atman Spring Boot app is behind the veil just a simple standalone Java application, which rides atop the *public static void main* method, you run it by executing
 ```
-???
 $mvn spring-boot:run
+```
+from the root project directory.
+
+Should you want to deploy the app, grab the jar file from *target/* and run it with the following command
+```
+$java -jar target/youareatman-1.0-SNAPSHOT.jar
 ```
 
 ## Curently implemented API calls
