@@ -1,15 +1,19 @@
-# The You are Atman project
-Purpose of this project is to enable spiritual aspirants on the Yoga path to track their daily spiritual work, as well as to note down any incidents that occurred throughout the course of the day, thus promoting vigilance, introspection and self-analysis.
+# The You Are Atman project
+Purpose of the You Are Atman project is to enable spiritual aspirants on the Yoga path to track their daily spiritual work, as well as to note down any incidents that occurred throughout the course of the day, thus promoting vigilance, introspection and self-analysis.
 
-It is based on the Yoga Sūtras of Patañjali, where it exposes the first two Yoga limbs. It provides the oportunity to the aspirant to note down, whether on a particular day he or she managed to follow all Yamas (moral imperatives) and Niyamas (virtuous habits, behaviors and observances); as well to describe particular obstacles (Antarayah) and possible correlates (Sahabhuva) that have manifested during the course of the day.
+It is based on the Yoga Sūtras of Patañjali, where it exposes the first two Yoga limbs. It provides the opportunity to the aspirant to note down, whether on a particular day he or she managed to follow all Yamas (moral imperatives) and Niyamas (virtuous habits, behaviors and observances); as well to describe particular obstacles (Antarayah) and possible correlates (Sahabhuva) that have manifested during the course of the day.
 
-# How to run
-First start the PostgreSQL docker instance
+##Purpose of this backend
+The idea of the whole project is to deploy REST API on a backend server and create multiple frontends for all kinds of devices people come across during the course of their day. Not just modern smartphones and tables, but anything that is capable of doing REST calls - TVs, cars, even a toilet if need be. Spiritual aspirants are ever-vigilant, they pick up ego incidents very quickly and thus need as many possibilities for quickly noting these down as possible.
+
+# Getting started
+First start the Postgres docker instance using
 ```
 $cd util/
 $docker build -t youareatman_postgres .
 $docker run -d --name YouAreAtmanPostgres -e POSTGRES_PASSWORD=youareatman -e POSTGRES_USER=atman youareatman_postgres
 ```
+*In the future it should also be possible to use SSL.*
 
 Since the You Are Atman Spring Boot app is behind the veil just a simple standalone Java application, which rides atop the *public static void main* method, you run it by executing
 ```
@@ -26,59 +30,28 @@ $java -jar target/youareatman-1.0-SNAPSHOT.jar
 *Substitute localhost:8443 in examples bellow with the address of your server.*
 
 ### Collection: atmanusers
-GET a resource:
+Users can be managed with these calls:
 
 ```
-https://localhost:8443/YouAreAtman/atmanusers
-https://localhost:8443/YouAreAtman/atmanusers/{userEmail}
-```
-
-POST a resource (not idempotent!):
-
-```
-https://localhost:8443/YouAreAtman/atmanusers
-```
-
-PUT (modify) a resource:
-
-```
-https://localhost:8443/YouAreAtman/atmanusers/{userEmail}/password
-https://localhost:8443/YouAreAtman/atmanusers/{userEmail}/date
-```
-
-DELETE a resource:
-
-```
-https://localhost:8443/YouAreAtman/atmanusers
+GET https://localhost:8443/YouAreAtman/atmanusers
+GET https://localhost:8443/YouAreAtman/atmanusers/{userEmail}
+POST https://localhost:8443/YouAreAtman/atmanusers
+PUT https://localhost:8443/YouAreAtman/atmanusers/{userEmail}/password
+PUT https://localhost:8443/YouAreAtman/atmanusers/{userEmail}/date
+DELETE https://localhost:8443/YouAreAtman/atmanusers
 ```
 
 ### Collection: incidents
-
-GET a resource:
-
-```
-https://localhost:8443/YouAreAtman/incidents
-https://localhost:8443/YouAreAtman/incidents/{userEmail}
-https://localhost:8443/YouAreAtman/incidents/{date}
-https://localhost:8443/YouAreAtman/incidents/{incidentId}
-```
-
-POST a resource (not idempotent!):
+Incidents, which occurred in users' lives, can be managed with these calls:
 
 ```
-https://localhost:8443/YouAreAtman/incidents
-```
-
-PUT (modify) a resource:
-
-```
-https://localhost:8443/YouAreAtman/incidents/{incidentId}
-```
-
-DELETE a resource:
-
-```
-https://localhost:8443/YouAreAtman/incidents/{incidentId}
+GET https://localhost:8443/YouAreAtman/incidents
+GET https://localhost:8443/YouAreAtman/incidents/{userEmail}
+GET https://localhost:8443/YouAreAtman/incidents/{date}
+GET https://localhost:8443/YouAreAtman/incidents/{incidentId}
+POST https://localhost:8443/YouAreAtman/incidents
+PUT https://localhost:8443/YouAreAtman/incidents/{incidentId}
+DELETE https://localhost:8443/YouAreAtman/incidents/{incidentId}
 ```
 
 # Implementation details
