@@ -1,5 +1,6 @@
 package net.youareatman.rest.controllers;
 
+import net.youareatman.exceptions.GenericYouAreAtmanException;
 import net.youareatman.model.IncidentEntry;
 import net.youareatman.model.forms.*;
 import net.youareatman.rest.services.IncidentService;
@@ -44,7 +45,11 @@ public class IncidentController {
     @ResponseBody
     public ResponseEntity<List<IncidentEntry>> listIncidentEntriesByUser(@PathVariable( "userEmail" ) String userEmail) {
 
-        incidentService.listIncidentEntriesByUser(userEmail);
+        try {
+            incidentService.listIncidentEntriesByUser(userEmail);
+        } catch (GenericYouAreAtmanException e) {
+            return (ResponseEntity<List<IncidentEntry>>) ResponseEntity.badRequest();
+        }
 
         return ResponseEntity.ok(null);
     }
@@ -62,7 +67,11 @@ public class IncidentController {
     @ResponseBody
     public ResponseEntity<IncidentEntry> listIncidentEntry(@PathVariable( "incidentId" ) String incidentId) {
 
-        incidentService.listIncidentEntry(incidentId);
+        try {
+            incidentService.listIncidentEntry(incidentId);
+        } catch (GenericYouAreAtmanException e) {
+            return (ResponseEntity<IncidentEntry>) ResponseEntity.badRequest();
+        }
 
         return ResponseEntity.ok(null);
     }
@@ -80,7 +89,11 @@ public class IncidentController {
     @ResponseBody
     public ResponseEntity changeIncidentEntry(@PathVariable( "incidentId" ) String incidentId, @RequestBody IncidentEntry incidentEntry) {
 
-        incidentService.changeIncidentEntry(incidentId, incidentEntry);
+        try {
+            incidentService.changeIncidentEntry(incidentId, incidentEntry);
+        } catch (GenericYouAreAtmanException e) {
+            return (ResponseEntity<IncidentEntry>) ResponseEntity.badRequest();
+        }
 
         return ResponseEntity.ok(null);
     }
