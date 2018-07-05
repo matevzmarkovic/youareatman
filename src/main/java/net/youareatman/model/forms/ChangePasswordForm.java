@@ -23,15 +23,23 @@ import org.apache.logging.log4j.Logger;
 
 public class ChangePasswordForm
 {
-    private final String password;
+    private final String passwordHash;
 
     private static Logger logger = LogManager.getLogger(ChangePasswordForm.class);
 
+    /**
+     * @param password raw password, which is automatically hashed.
+     */
     public ChangePasswordForm(String password) {
-        this.password = password;
+        this.passwordHash = hashPassword(password);
     }
 
-    public String getPassword() {
+    public String getPasswordHash() {
+        return passwordHash;
+    }
+
+    private String hashPassword(String password){
+        //TODO hash the password
         return password;
     }
 }

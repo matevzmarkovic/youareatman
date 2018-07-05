@@ -1,6 +1,7 @@
 package net.youareatman.rest.controllers;
 
 import net.youareatman.exceptions.GenericYouAreAtmanException;
+import net.youareatman.exceptions.IncidentManagementException;
 import net.youareatman.model.IncidentEntry;
 import net.youareatman.model.forms.*;
 import net.youareatman.rest.services.IncidentService;
@@ -23,10 +24,7 @@ public class IncidentController {
 
     private static Logger logger = LogManager.getLogger(IncidentController.class);
 
-    //TODO add exceptions
     //TODO add https
-
-    //TODO proceed to construct PostgreSQL queries with http://javasampleapproach.com/spring-framework/use-spring-jpa-postgresql-spring-boot
 
     //******************************************************************************************************************
     //                                              Incident management
@@ -35,10 +33,7 @@ public class IncidentController {
     @RequestMapping(value = "/incidents",method=GET)
     @ResponseBody
     public ResponseEntity<List<IncidentEntry>> listIncidentEntries() {
-
-        incidentService.listIncidentEntries();
-
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok(incidentService.listIncidentEntries());
     }
 
     @RequestMapping(value = "/incidents/{userEmail}",method=GET)
@@ -46,21 +41,18 @@ public class IncidentController {
     public ResponseEntity<List<IncidentEntry>> listIncidentEntriesByUser(@PathVariable( "userEmail" ) String userEmail) {
 
         try {
-            incidentService.listIncidentEntriesByUser(userEmail);
-        } catch (GenericYouAreAtmanException e) {
-            return (ResponseEntity<List<IncidentEntry>>) ResponseEntity.badRequest();
+            return ResponseEntity.ok(incidentService.listIncidentEntriesByUser(userEmail));
+        } catch (IncidentManagementException e) {
+            return ResponseEntity.badRequest().build();
         }
 
-        return ResponseEntity.ok(null);
     }
 
     @RequestMapping(value = "/incidents/{date}",method=GET)
     @ResponseBody
     public ResponseEntity<List<IncidentEntry>> listIncidentEntriesByDate(@PathVariable( "date" ) Date date) {
 
-        incidentService.listIncidentEntriesByDate(date);
-
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok(incidentService.listIncidentEntriesByDate(date));
     }
 
     @RequestMapping(value = "/incidents/{incidentId}",method=GET)
@@ -68,43 +60,39 @@ public class IncidentController {
     public ResponseEntity<IncidentEntry> listIncidentEntry(@PathVariable( "incidentId" ) String incidentId) {
 
         try {
-            incidentService.listIncidentEntry(incidentId);
+            return ResponseEntity.ok(incidentService.listIncidentEntry(incidentId));
         } catch (GenericYouAreAtmanException e) {
-            return (ResponseEntity<IncidentEntry>) ResponseEntity.badRequest();
+            return ResponseEntity.badRequest().build();
         }
-
-        return ResponseEntity.ok(null);
     }
 
     @RequestMapping(value = "/incidents",method=POST)
     @ResponseBody
     public ResponseEntity createIncidentEntry(@RequestBody IncidentEntry incidentEntry) {
 
-        incidentService.createIncidentEntry(incidentEntry);
-
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok(incidentService.createIncidentEntry(incidentEntry));
     }
 
     @RequestMapping(value = "/incidents/{incidentId}",method=PUT)
     @ResponseBody
-    public ResponseEntity changeIncidentEntry(@PathVariable( "incidentId" ) String incidentId, @RequestBody IncidentEntry incidentEntry) {
+    public ResponseEntity changeIncident(@PathVariable( "incidentId" ) String incidentId, @RequestBody IncidentEntryForm incidentEntryForm) {
 
         try {
-            incidentService.changeIncidentEntry(incidentId, incidentEntry);
+            return ResponseEntity.ok(incidentService.changeIncidentEntry(incidentId, incidentEntryForm));
         } catch (GenericYouAreAtmanException e) {
-            return (ResponseEntity<IncidentEntry>) ResponseEntity.badRequest();
+            return ResponseEntity.badRequest().build();
         }
-
-        return ResponseEntity.ok(null);
     }
 
     @RequestMapping(value = "/incidents/{incidentId}",method=DELETE)
     @ResponseBody
     public ResponseEntity deleteIncidentEntry(@PathVariable( "incidentId" ) String incidentId) {
 
-        incidentService.deleteIncidentEntry(incidentId);
+        if (incidentService.deleteIncidentEntry(incidentId)) {
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.badRequest().build();
 
-        return ResponseEntity.ok(null);
     }
 
 }

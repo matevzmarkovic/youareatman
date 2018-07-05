@@ -2,7 +2,9 @@ package net.youareatman.rest.services;
 
 import net.youareatman.enums.ErrorTypesEnum;
 import net.youareatman.exceptions.GenericYouAreAtmanException;
+import net.youareatman.exceptions.IncidentManagementException;
 import net.youareatman.model.IncidentEntry;
+import net.youareatman.model.forms.IncidentEntryForm;
 import net.youareatman.rest.repositories.IncidentRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -32,7 +34,7 @@ public class IncidentService {
         return incidents;
     }
 
-    public List<IncidentEntry>listIncidentEntriesByUser(String userEmail) throws GenericYouAreAtmanException {
+    public List<IncidentEntry>listIncidentEntriesByUser(String userEmail) throws IncidentManagementException {
         List<IncidentEntry> incidents = new ArrayList<IncidentEntry>();
         incidentRepository.findByAtmanUser(userEmail).forEach(incidents::add);
         return incidents;
@@ -44,54 +46,53 @@ public class IncidentService {
         return incidents;
     }
 
-    public IncidentEntry listIncidentEntry(String incidentId) throws GenericYouAreAtmanException{
+    public IncidentEntry listIncidentEntry(String incidentId) throws IncidentManagementException{
         List<IncidentEntry> incidents = new ArrayList<IncidentEntry>();
-        IncidentEntry incidentEntry =  incidentRepository.findById(incidentId).orElseThrow(() -> new GenericYouAreAtmanException("Error while reading incident from database", ErrorTypesEnum.CRUDError));
-
-        return incidentEntry;
+        return incidentRepository.findById(incidentId).orElseThrow(() -> new IncidentManagementException("Error while reading incident from database", ErrorTypesEnum.InvalidIncidentIdError));
     }
 
     //Ignore incidentId in the sourceIncidentEntry, as it is used just as a placeholder for data
     //  destined to be associated with the existing incident entry in the database.
-    public IncidentEntry changeIncidentEntry(String incidentId, IncidentEntry sourceIncidentEntry) throws GenericYouAreAtmanException{
+    public IncidentEntry changeIncidentEntry(String incidentId, IncidentEntryForm incidentEntryForm) throws IncidentManagementException {
         IncidentEntry targetIncidentEntry = listIncidentEntry(incidentId);
-        copyIncidentEntryValues(sourceIncidentEntry,targetIncidentEntry);
-        incidentRepository.save(targetIncidentEntry);
-
-        return targetIncidentEntry;
+        copyIncidentEntryValues(incidentEntryForm,targetIncidentEntry);
+        return incidentRepository.save(targetIncidentEntry);
     }
 
     public IncidentEntry createIncidentEntry(IncidentEntry incidentEntry){
         //incidentEntry->incidentId is ignored, as incidentId is created automatically.
-        incidentRepository.save(incidentEntry);
-
-        return incidentEntry;
+        return incidentRepository.save(incidentEntry);
     }
 
-    public void deleteIncidentEntry(String incidentId){
-        incidentRepository.deleteById(incidentId);
+    public boolean deleteIncidentEntry(String incidentId){
+        if (incidentRepository.existsById(incidentId)) {
+            incidentRepository.deleteById(incidentId);
+            return true;
+        }
+        return false;
     }
 
     /**
-     * Copy all non-null fields from the source to the destination incident entry. Ignore incidentId in the source incident entry.
-     * @param source
-     * @param destination
+     * Copy all non-null fields from the form to the target incident entry.
+     * Preserve incidentId in the target incident entry.
+     * @param form
+     * @param target
      */
-    private void copyIncidentEntryValues(IncidentEntry source, IncidentEntry destination) {
-        if (source.getAntarayahType() != null) {
-            destination.setAntarayahType(source.getAntarayahType());
+    private void copyIncidentEntryValues(IncidentEntryForm form, IncidentEntry target) {
+        if (form.getAntarayahType() != null) {
+            target.setAntarayahType(form.getAntarayahType());
         }
-        if (source.getDescription() != null) {
-            destination.setDescription(source.getDescription());
+        if (form.getDescription() != null) {
+            target.setDescription(form.getDescription());
         }
-        if (source.getEntryDate() != null) {
-            destination.setEntryDate(source.getEntryDate());
+        if (form.getEntryDate() != null) {
+            target.setEntryDate(form.getEntryDate());
         }
-        if (source.getSahabhuvaType() != null) {
-            destination.setSahabhuvaType(source.getSahabhuvaType());
+        if (form.getSahabhuvaType() != null) {
+            target.setSahabhuvaType(form.getSahabhuvaType());
         }
-        if (source.getUser() != null) {
-            destination.setUser(source.getUser());
+        if (form.getUser() != null) {
+            target.setUser(form.getUser());
         }
     }
 

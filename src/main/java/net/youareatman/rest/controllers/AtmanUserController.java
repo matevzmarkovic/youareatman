@@ -32,9 +32,7 @@ public class AtmanUserController {
     @RequestMapping(value = "/atmanusers",method=GET)
     @ResponseBody
     public ResponseEntity<List<AtmanUser>> listUsers() {
-
         List<AtmanUser> users = atmanUserService.listUsers();
-
         return ResponseEntity.ok(users);
     }
 
@@ -45,7 +43,7 @@ public class AtmanUserController {
             AtmanUser user = atmanUserService.listUser(userEmail);
             return ResponseEntity.ok(user);
         } catch (GenericYouAreAtmanException e) {
-            return (ResponseEntity<AtmanUser>) ResponseEntity.badRequest();
+            return ResponseEntity.badRequest().build();
         }
 
     }
@@ -58,7 +56,7 @@ public class AtmanUserController {
             AtmanUser user = atmanUserService.changePassword(userEmail, changePasswordForm);
             return ResponseEntity.ok(user);
         } catch (GenericYouAreAtmanException e) {
-            return (ResponseEntity<AtmanUser>) ResponseEntity.badRequest();
+            return ResponseEntity.badRequest().build();
         }
     }
 
@@ -71,7 +69,7 @@ public class AtmanUserController {
             return ResponseEntity.ok(user);
         }
         catch(GenericYouAreAtmanException e){
-            return (ResponseEntity<AtmanUser>) ResponseEntity.badRequest();
+            return ResponseEntity.badRequest().build();
         }
     }
 
@@ -89,10 +87,13 @@ public class AtmanUserController {
     public ResponseEntity deleteUser(@PathVariable( "userEmail" ) String userEmail) {
 
         try {
-            AtmanUser user = atmanUserService.deleteUser(userEmail);
-            return ResponseEntity.ok(user);
+            if (atmanUserService.deleteUser(userEmail)) {
+                return ResponseEntity.ok().build();
+            }
+            return ResponseEntity.badRequest().build();
+
         } catch (GenericYouAreAtmanException e) {
-            return (ResponseEntity<AtmanUser>) ResponseEntity.badRequest();
+            return ResponseEntity.badRequest().build();
         }
 
     }

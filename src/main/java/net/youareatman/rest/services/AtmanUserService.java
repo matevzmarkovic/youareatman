@@ -2,6 +2,7 @@ package net.youareatman.rest.services;
 
 import net.youareatman.enums.ErrorTypesEnum;
 import net.youareatman.exceptions.GenericYouAreAtmanException;
+import net.youareatman.exceptions.UserManagementException;
 import net.youareatman.model.AtmanUser;
 import net.youareatman.model.forms.ChangeDateForm;
 import net.youareatman.model.forms.ChangePasswordForm;
@@ -29,25 +30,24 @@ public class AtmanUserService {
     public List<AtmanUser> listUsers(){
         List<AtmanUser> users = new ArrayList<AtmanUser>();
         atmanUserRepository.findAll().forEach(users::add);
-
         return users;
     }
 
     public AtmanUser listUser(String userEmail) throws GenericYouAreAtmanException {
-        AtmanUser userEntry = atmanUserRepository.findById(userEmail).orElseThrow(() -> new GenericYouAreAtmanException("Error while reading user from database", ErrorTypesEnum.CRUDError));
+        AtmanUser userEntry = atmanUserRepository.findById(userEmail).orElseThrow(() -> new UserManagementException("Error while reading user " + userEmail + "from database", ErrorTypesEnum.InvalidUserIdError));
         return userEntry;
     }
 
     public AtmanUser changePassword(String userEmail, ChangePasswordForm changePasswordForm) throws GenericYouAreAtmanException {
-        AtmanUser userEntry = atmanUserRepository.findById(userEmail).orElseThrow(() -> new GenericYouAreAtmanException("Error while reading user from database", ErrorTypesEnum.CRUDError));
-        userEntry.setPasswordHash(changePasswordForm.getPassword());
+        AtmanUser userEntry = atmanUserRepository.findById(userEmail).orElseThrow(() -> new UserManagementException("Error while reading user " + userEmail + "from database", ErrorTypesEnum.InvalidUserIdError));
+        userEntry.setPasswordHash(changePasswordForm.getPasswordHash());
         atmanUserRepository.save(userEntry);
 
         return userEntry;
     }
 
     public AtmanUser changeUserJoinDate(String userEmail, ChangeDateForm changeDateForm) throws GenericYouAreAtmanException{
-        AtmanUser userEntry = atmanUserRepository.findById(userEmail).orElseThrow(() -> new GenericYouAreAtmanException("Error while reading user from database", ErrorTypesEnum.CRUDError));
+        AtmanUser userEntry = atmanUserRepository.findById(userEmail).orElseThrow(() -> new UserManagementException("Error while reading user " + userEmail + "from database", ErrorTypesEnum.InvalidUserIdError));
         userEntry.setJoinDate(changeDateForm.getJoinDate());
         atmanUserRepository.save(userEntry);
 
@@ -59,10 +59,12 @@ public class AtmanUserService {
         return user;
     }
 
-    public AtmanUser deleteUser(String userEmail) throws GenericYouAreAtmanException{
-        AtmanUser user = atmanUserRepository.findById(userEmail).orElseThrow(() -> new GenericYouAreAtmanException("Error while reading user from database", ErrorTypesEnum.CRUDError));
-        atmanUserRepository.deleteById(userEmail);
-        return user;
+    public boolean deleteUser(String userEmail) throws GenericYouAreAtmanException{
+        if (atmanUserRepository.existsById(userEmail)) {
+            atmanUserRepository.deleteById(userEmail);
+            return true;
+        }
+        return false;
     }
 
 }
