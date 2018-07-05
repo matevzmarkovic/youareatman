@@ -8,6 +8,7 @@ import net.youareatman.rest.services.IncidentService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -52,7 +53,11 @@ public class IncidentController {
     @ResponseBody
     public ResponseEntity<List<IncidentEntry>> listIncidentEntriesByDate(@PathVariable( "date" ) Date date) {
 
-        return ResponseEntity.ok(incidentService.listIncidentEntriesByDate(date));
+        try {
+            return ResponseEntity.ok(incidentService.listIncidentEntriesByDate(date));
+        } catch (IncidentManagementException e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @RequestMapping(value = "/incidents/{incidentId}",method=GET)
@@ -79,7 +84,7 @@ public class IncidentController {
 
         try {
             return ResponseEntity.ok(incidentService.changeIncidentEntry(incidentId, incidentEntryForm));
-        } catch (GenericYouAreAtmanException e) {
+        } catch (IncidentManagementException e) {
             return ResponseEntity.badRequest().build();
         }
     }
@@ -88,10 +93,12 @@ public class IncidentController {
     @ResponseBody
     public ResponseEntity deleteIncidentEntry(@PathVariable( "incidentId" ) String incidentId) {
 
-        if (incidentService.deleteIncidentEntry(incidentId)) {
+        try {
+            incidentService.deleteIncidentEntry(incidentId);
             return ResponseEntity.ok().build();
+        } catch (IncidentManagementException e) {
+            return ResponseEntity.badRequest().build();
         }
-        return ResponseEntity.badRequest().build();
 
     }
 

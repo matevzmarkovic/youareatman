@@ -27,6 +27,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
+@SequenceGenerator(name="seq", initialValue=1, allocationSize=100)
 @Entity
 @Table(name = "Incident")
 public class IncidentEntry implements Serializable
@@ -34,7 +35,8 @@ public class IncidentEntry implements Serializable
     private static final long serialVersionUID = -3029141732242241606L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
+    @Column(columnDefinition = "serial")
     private String incidentId;
 
     private Date date;

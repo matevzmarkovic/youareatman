@@ -3,6 +3,7 @@ package net.youareatman.rest.services;
 import net.youareatman.enums.ErrorTypesEnum;
 import net.youareatman.exceptions.GenericYouAreAtmanException;
 import net.youareatman.exceptions.IncidentManagementException;
+import net.youareatman.exceptions.UserManagementException;
 import net.youareatman.model.IncidentEntry;
 import net.youareatman.model.forms.IncidentEntryForm;
 import net.youareatman.rest.repositories.IncidentRepository;
@@ -14,6 +15,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import static net.youareatman.helpers.YouAreAtmanHelpers.*;
 
 @Service
 public class IncidentService {
@@ -35,18 +38,24 @@ public class IncidentService {
     }
 
     public List<IncidentEntry>listIncidentEntriesByUser(String userEmail) throws IncidentManagementException {
+        validateUserEmail_Incident(userEmail);
+
         List<IncidentEntry> incidents = new ArrayList<IncidentEntry>();
         incidentRepository.findByAtmanUser(userEmail).forEach(incidents::add);
         return incidents;
     }
 
-    public List<IncidentEntry> listIncidentEntriesByDate(Date date){
+    public List<IncidentEntry> listIncidentEntriesByDate(Date date) throws IncidentManagementException {
+        validateDate_Incident(date);
+
         List<IncidentEntry> incidents = new ArrayList<IncidentEntry>();
         incidentRepository.findByDate(date).forEach(incidents::add);;
         return incidents;
     }
 
     public IncidentEntry listIncidentEntry(String incidentId) throws IncidentManagementException{
+        validateIncidentId(incidentId);
+
         List<IncidentEntry> incidents = new ArrayList<IncidentEntry>();
         return incidentRepository.findById(incidentId).orElseThrow(() -> new IncidentManagementException("Error while reading incident from database", ErrorTypesEnum.InvalidIncidentIdError));
     }
@@ -54,22 +63,26 @@ public class IncidentService {
     //Ignore incidentId in the sourceIncidentEntry, as it is used just as a placeholder for data
     //  destined to be associated with the existing incident entry in the database.
     public IncidentEntry changeIncidentEntry(String incidentId, IncidentEntryForm incidentEntryForm) throws IncidentManagementException {
+        validateIncidentId(incidentId);
+
         IncidentEntry targetIncidentEntry = listIncidentEntry(incidentId);
         copyIncidentEntryValues(incidentEntryForm,targetIncidentEntry);
         return incidentRepository.save(targetIncidentEntry);
     }
 
+    //IncidentId is erased before insertion into database, due to it being automatically generated
     public IncidentEntry createIncidentEntry(IncidentEntry incidentEntry){
-        //incidentEntry->incidentId is ignored, as incidentId is created automatically.
+        //incidentEntry->incidentId should be erased, as incidentId is created automatically.
+        incidentEntry.setIncidentId(null);
         return incidentRepository.save(incidentEntry);
     }
 
-    public boolean deleteIncidentEntry(String incidentId){
+    public void deleteIncidentEntry(String incidentId) throws IncidentManagementException{
+        validateIncidentId(incidentId);
+
         if (incidentRepository.existsById(incidentId)) {
             incidentRepository.deleteById(incidentId);
-            return true;
         }
-        return false;
     }
 
     /**

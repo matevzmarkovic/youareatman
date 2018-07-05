@@ -11,7 +11,8 @@ public enum ErrorTypesEnum {
     InvalidUserEmailError(7,"Provided user email is invalid."),
     InvalidPasswordHashError(8,"Provided password hash is invalid."),
     InvalidDate(9,"Provided date is invalid."),
-    EmptyPasswordError(10,"Empty raw password was provided.")
+    EmptyPasswordError(10,"Empty raw password was provided."),
+    EmptyIncidentIdError(11,"Provided incidentId was empty.")
     ;
 
     private final int code;

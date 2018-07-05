@@ -1,6 +1,8 @@
 package net.youareatman.helpers;
 
+import net.youareatman.exceptions.IncidentManagementException;
 import net.youareatman.exceptions.UserManagementException;
+import net.youareatman.model.IncidentEntry;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Date;
@@ -29,6 +31,14 @@ public class YouAreAtmanHelpers {
             throw new UserManagementException("Provided user email is invalid.",InvalidUserEmailError);
         }
     }
+    //Just convert exception type
+    public static void validateUserEmail_Incident(String email) throws IncidentManagementException {
+        try {
+            validateUserEmail(email);
+        } catch (UserManagementException e) {
+            throw new IncidentManagementException(e.getMessage(),e.getErrorType());
+        }
+    }
 
     public static void validatePasswordHash(String passwordHash) throws UserManagementException {
         if (passwordHash == null) {
@@ -48,6 +58,26 @@ public class YouAreAtmanHelpers {
         if (date == null) {
             throw new UserManagementException("Empty date was provided.",InvalidDate);
         }
+    }
+    //Just convert exception type
+    public static void validateDate_Incident(Date date) throws IncidentManagementException {
+        try {
+            validateDate(date);
+        } catch (UserManagementException e) {
+            throw new IncidentManagementException(e.getMessage(),e.getErrorType());
+        }
+    }
+
+    public static void validateIncidentId(String incidentId) throws IncidentManagementException {
+        if (incidentId == null || incidentId.length() == 0) {
+            throw new IncidentManagementException("Empty incidentId was provided",EmptyIncidentIdError);
+        }
+    }
+
+    public static void validateIncidentEntry(IncidentEntry entry) throws IncidentManagementException {
+        validateIncidentId(entry.getIncidentId());
+        validateDate_Incident(entry.getDate());
+        validateUserEmail_Incident(entry.getUser().getUserEmail());
     }
 
 }
