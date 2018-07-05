@@ -62,8 +62,7 @@ public class AtmanUserService {
     }
 
     public AtmanUser createUser(String userEmail, String passHash){
-        Date today = Calendar.getInstance(TimeZone.getDefault()).getTime();
-        AtmanUser user = new AtmanUser(today,userEmail,passHash);
+        AtmanUser user = new AtmanUser(userEmail,passHash);
         atmanUserRepository.save(user);
         return user;
     }

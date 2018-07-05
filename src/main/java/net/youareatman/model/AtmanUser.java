@@ -24,9 +24,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 public class AtmanUser implements Serializable
@@ -42,14 +40,17 @@ public class AtmanUser implements Serializable
 
     private static Logger logger = LogManager.getLogger(AtmanUser.class);
 
-    protected AtmanUser(){
-
+    public AtmanUser(String userEmail, String passHash){
+        Date today = Calendar.getInstance(TimeZone.getDefault()).getTime();
+        this.joinDate = today;
+        this.userEmail = userEmail;
+        this.passHash = passHash;
     }
 
-    public AtmanUser(Date joinDate, String userEmail, String password) {
+    public AtmanUser(Date joinDate, String userEmail, String passHash) {
         this.joinDate = joinDate;
         this.userEmail = userEmail;
-        this.passHash = password;
+        this.passHash = passHash;
     }
 
     @Override
