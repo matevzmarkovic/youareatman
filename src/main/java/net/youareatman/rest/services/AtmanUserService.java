@@ -12,8 +12,9 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+
+import static net.youareatman.helpers.YouAreAtmanHelpers.hashPassword;
 
 @Service
 public class AtmanUserService {
@@ -40,7 +41,7 @@ public class AtmanUserService {
 
     public AtmanUser changePassword(String userEmail, ChangePasswordForm changePasswordForm) throws GenericYouAreAtmanException {
         AtmanUser userEntry = atmanUserRepository.findById(userEmail).orElseThrow(() -> new UserManagementException("Error while reading user " + userEmail + "from database", ErrorTypesEnum.InvalidUserIdError));
-        userEntry.setPassHash(changePasswordForm.getPasswordHash());
+        userEntry.setPassHash(hashPassword(changePasswordForm.getPassword()));
         atmanUserRepository.save(userEntry);
 
         return userEntry;
@@ -54,7 +55,15 @@ public class AtmanUserService {
         return userEntry;
     }
 
-    public AtmanUser createUser(AtmanUser user){
+    //This method is for inside use only
+    private AtmanUser createUser(AtmanUser user){
+        atmanUserRepository.save(user);
+        return user;
+    }
+
+    public AtmanUser createUser(String userEmail, String passHash){
+        Date today = Calendar.getInstance(TimeZone.getDefault()).getTime();
+        AtmanUser user = new AtmanUser(today,userEmail,passHash);
         atmanUserRepository.save(user);
         return user;
     }

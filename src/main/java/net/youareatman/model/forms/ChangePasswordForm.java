@@ -21,9 +21,12 @@ package net.youareatman.model.forms;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * This class is meant for use at frontend
+ */
 public class ChangePasswordForm
 {
-    private final String passwordHash;
+    private final String password;
 
     private static Logger logger = LogManager.getLogger(ChangePasswordForm.class);
 
@@ -31,15 +34,10 @@ public class ChangePasswordForm
      * @param password raw password, which is automatically hashed.
      */
     public ChangePasswordForm(String password) {
-        this.passwordHash = hashPassword(password);
+        this.password = password;
     }
 
-    public String getPasswordHash() {
-        return passwordHash;
-    }
-
-    private String hashPassword(String password){
-        //TODO hash the password
+    public String getPassword() {
         return password;
     }
 }

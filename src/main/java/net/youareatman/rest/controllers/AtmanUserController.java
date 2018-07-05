@@ -1,6 +1,7 @@
 package net.youareatman.rest.controllers;
 
 import net.youareatman.exceptions.GenericYouAreAtmanException;
+import net.youareatman.helpers.YouAreAtmanHelpers;
 import net.youareatman.model.*;
 import net.youareatman.model.forms.*;
 import net.youareatman.rest.services.AtmanUserService;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static net.youareatman.helpers.YouAreAtmanHelpers.hashPassword;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RestController
@@ -73,11 +75,12 @@ public class AtmanUserController {
         }
     }
 
-    @RequestMapping(value = "/atmanusers",method=POST)
+    //TODO provide also passwordHash
+    @RequestMapping(value = "/atmanusers/{userEmail}",method=POST)
     @ResponseBody
-    public ResponseEntity createUser(@RequestBody AtmanUser user) {
+    public ResponseEntity createUser(@PathVariable( "userEmail" ) String userEmail, @RequestBody String password) {
 
-        atmanUserService.createUser(user);
+        AtmanUser user = atmanUserService.createUser(userEmail, hashPassword(password));
 
         return ResponseEntity.ok(user);
     }

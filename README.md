@@ -40,7 +40,7 @@ Users can be managed with these calls:
 ```
 GET https://localhost:8443/YouAreAtman/atmanusers
 GET https://localhost:8443/YouAreAtman/atmanusers/{userEmail}
-POST https://localhost:8443/YouAreAtman/atmanusers
+POST https://localhost:8443/YouAreAtman/atmanusers/{userEmail}
 PUT https://localhost:8443/YouAreAtman/atmanusers/{userEmail}/password
 PUT https://localhost:8443/YouAreAtman/atmanusers/{userEmail}/date
 DELETE https://localhost:8443/YouAreAtman/atmanusers
