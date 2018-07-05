@@ -1,6 +1,7 @@
 package net.youareatman.rest.controllers;
 
 import net.youareatman.exceptions.GenericYouAreAtmanException;
+import net.youareatman.exceptions.UserManagementException;
 import net.youareatman.helpers.YouAreAtmanHelpers;
 import net.youareatman.model.*;
 import net.youareatman.model.forms.*;
@@ -75,14 +76,15 @@ public class AtmanUserController {
         }
     }
 
-    //TODO provide also passwordHash
     @RequestMapping(value = "/atmanusers/{userEmail}",method=POST)
     @ResponseBody
     public ResponseEntity createUser(@PathVariable( "userEmail" ) String userEmail, @RequestBody String password) {
-
-        AtmanUser user = atmanUserService.createUser(userEmail, hashPassword(password));
-
-        return ResponseEntity.ok(user);
+        try {
+            AtmanUser user = atmanUserService.createUser(userEmail, password);
+            return ResponseEntity.ok(user);
+        } catch (UserManagementException e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @RequestMapping(value = "/atmanusers/{userEmail}",method=DELETE)
