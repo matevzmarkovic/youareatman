@@ -87,14 +87,12 @@ public class AtmanUserService {
 
     }
 
-    public boolean deleteUser(String userEmail) throws UserManagementException{
+    public void deleteUser(String userEmail) throws UserManagementException{
         validateUserEmail(userEmail);
 
         if (atmanUserRepository.existsById(userEmail)) {
             atmanUserRepository.deleteById(userEmail);
-            return true;
         }
-        return false;
     }
 
 }

@@ -92,12 +92,10 @@ public class AtmanUserController {
     public ResponseEntity deleteUser(@PathVariable( "userEmail" ) String userEmail) {
 
         try {
-            if (atmanUserService.deleteUser(userEmail)) {
-                return ResponseEntity.ok().build();
-            }
-            return ResponseEntity.badRequest().build();
+            atmanUserService.deleteUser(userEmail);
+            return ResponseEntity.ok().build();
 
-        } catch (GenericYouAreAtmanException e) {
+        } catch (UserManagementException e) {
             return ResponseEntity.badRequest().build();
         }
 
