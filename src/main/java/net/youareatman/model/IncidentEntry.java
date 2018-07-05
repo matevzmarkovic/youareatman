@@ -19,6 +19,7 @@
 package net.youareatman.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -34,24 +35,19 @@ public class IncidentEntry implements Serializable
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "IncidentId")
     private String incidentId;
 
-    @Column(name = "Date")
-    private Date entryDate;
+    private Date date;
 
     @ManyToOne
-    @JoinColumn(name = "UserEmail", referencedColumnName="UserEmail", nullable = false)
-    @JsonBackReference
+    @JoinColumn(name = "userEmail", nullable = false)
+    @JsonIgnore
     private AtmanUser atmanUser;
 
-    @Column(name = "AntarayahType")
     private String antarayahType;
 
-    @Column(name = "SahabhuvaType")
     private String sahabhuvaType;
 
-    @Column(name = "Description")
     private String description;
 
     private static Logger logger = LogManager.getLogger(IncidentEntry.class);
@@ -60,9 +56,9 @@ public class IncidentEntry implements Serializable
 
     }
 
-    public IncidentEntry(String incidentId, Date entryDate, AtmanUser atmanUser, String antarayahType, String sahabhuvaType, String description) {
+    public IncidentEntry(String incidentId, Date date, AtmanUser atmanUser, String antarayahType, String sahabhuvaType, String description) {
         this.incidentId = incidentId;
-        this.entryDate = entryDate;
+        this.date = date;
         this.atmanUser = atmanUser;
         this.antarayahType = antarayahType;
         this.sahabhuvaType = sahabhuvaType;
@@ -71,7 +67,7 @@ public class IncidentEntry implements Serializable
 
     @Override
     public String toString() {
-        return String.format("Incident[incidentId=%d, entryDate='%s', userEmail='%s', antarayahType='%s', sahabhuvaType='%s', description='%s']", incidentId, entryDate.toString(), atmanUser.getUserEmail(), antarayahType, sahabhuvaType, description);
+        return String.format("Incident[incidentId=%d, date='%s', userEmail='%s', antarayahType='%s', sahabhuvaType='%s', description='%s']", incidentId, date.toString(), atmanUser.getUserEmail(), antarayahType, sahabhuvaType, description);
     }
 
     public static long getSerialVersionUID() {
@@ -82,8 +78,8 @@ public class IncidentEntry implements Serializable
         return incidentId;
     }
 
-    public Date getEntryDate() {
-        return entryDate;
+    public Date getDate() {
+        return date;
     }
 
     public AtmanUser getUser() {
@@ -106,8 +102,8 @@ public class IncidentEntry implements Serializable
         this.incidentId = incidentId;
     }
 
-    public void setEntryDate(Date entryDate) {
-        this.entryDate = entryDate;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public void setUser(AtmanUser atmanUser) {

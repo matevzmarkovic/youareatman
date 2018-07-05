@@ -20,10 +20,10 @@ public interface IncidentRepository extends CrudRepository<IncidentEntry, String
 
     /**
      * Finds incidents by using the date as a search criteria.
-     * @param entryDate
+     * @param date
      * @return  A list of incidents of which date is an exact match with the given date.
      *          If no incident is found, this method returns an empty list.
      */
-    public List<IncidentEntry> findByEntryDate(Date entryDate);
+    public List<IncidentEntry> findByDate(Date date);
 
 }

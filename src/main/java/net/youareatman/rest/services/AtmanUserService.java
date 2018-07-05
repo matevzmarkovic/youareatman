@@ -40,7 +40,7 @@ public class AtmanUserService {
 
     public AtmanUser changePassword(String userEmail, ChangePasswordForm changePasswordForm) throws GenericYouAreAtmanException {
         AtmanUser userEntry = atmanUserRepository.findById(userEmail).orElseThrow(() -> new UserManagementException("Error while reading user " + userEmail + "from database", ErrorTypesEnum.InvalidUserIdError));
-        userEntry.setPasswordHash(changePasswordForm.getPasswordHash());
+        userEntry.setPassHash(changePasswordForm.getPasswordHash());
         atmanUserRepository.save(userEntry);
 
         return userEntry;

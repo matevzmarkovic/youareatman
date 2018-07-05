@@ -18,6 +18,7 @@
 
 package net.youareatman.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -28,23 +29,16 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "AtmanUser")
 public class AtmanUser implements Serializable
 {
     private static final long serialVersionUID = -3009157755542241606L;
 
     @Id
-    @Column(name = "UserEmail")
     private String userEmail;
 
-    @Column(name = "JoinDate")
     private Date joinDate;
 
-    @Column(name = "PassHash")
-    private String passwordHash;
-
-    @OneToMany(mappedBy = "atmanUser", cascade = CascadeType.ALL)
-    private Set<IncidentEntry> incidentEntrySet = new HashSet<IncidentEntry>();
+    private String passHash;
 
     private static Logger logger = LogManager.getLogger(AtmanUser.class);
 
@@ -55,19 +49,12 @@ public class AtmanUser implements Serializable
     public AtmanUser(Date joinDate, String userEmail, String password) {
         this.joinDate = joinDate;
         this.userEmail = userEmail;
-        this.passwordHash = password;
-    }
-
-    public AtmanUser(Date joinDate, String userEmail, String password, Set<IncidentEntry> incidentEntrySet) {
-        this.joinDate = joinDate;
-        this.userEmail = userEmail;
-        this.passwordHash = password;
-        this.incidentEntrySet = incidentEntrySet;
+        this.passHash = password;
     }
 
     @Override
     public String toString() {
-        return String.format("AtmanUser[joinDate=%s, userEmail='%s', passwordHash='%s']", joinDate.toString(), userEmail, passwordHash);
+        return String.format("AtmanUser[joinDate=%s, userEmail='%s', passHash='%s']", joinDate.toString(), userEmail, passHash);
     }
 
     public Date getJoinDate() {
@@ -78,12 +65,8 @@ public class AtmanUser implements Serializable
         return userEmail;
     }
 
-    public String getPasswordHash() {
-        return passwordHash;
-    }
-
-    public Set<IncidentEntry> getIncidentEntrySet() {
-        return incidentEntrySet;
+    public String getPassHash() {
+        return passHash;
     }
 
     public void setJoinDate(Date joinDate) {
@@ -94,12 +77,8 @@ public class AtmanUser implements Serializable
         this.userEmail = userEmail;
     }
 
-    public void setPasswordHash(String passwordHash) {
-        this.passwordHash = passwordHash;
-    }
-
-    public void setIncidentEntrySet(Set<IncidentEntry> incidentEntrySet) {
-        this.incidentEntrySet = incidentEntrySet;
+    public void setPassHash(String passHash) {
+        this.passHash = passHash;
     }
 
     public static long getSerialVersionUID() {

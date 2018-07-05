@@ -32,7 +32,7 @@ public class IncidentEntryForm implements Serializable
 {
     private static final long serialVersionUID = -3029133732242241606L;
 
-    private Date entryDate;
+    private Date date;
 
     private AtmanUser atmanUser;
 
@@ -49,15 +49,15 @@ public class IncidentEntryForm implements Serializable
     }
 
     public IncidentEntryForm(IncidentEntry incidentEntry) {
-        this.entryDate = incidentEntry.getEntryDate();
+        this.date = incidentEntry.getDate();
         this.atmanUser = incidentEntry.getUser();
         this.antarayahType = incidentEntry.getAntarayahType();
         this.sahabhuvaType = incidentEntry.getSahabhuvaType();
         this.description = incidentEntry.getDescription();
     }
 
-    public IncidentEntryForm(Date entryDate, AtmanUser atmanUser, String antarayahType, String sahabhuvaType, String description) {
-        this.entryDate = entryDate;
+    public IncidentEntryForm(Date date, AtmanUser atmanUser, String antarayahType, String sahabhuvaType, String description) {
+        this.date = date;
         this.atmanUser = atmanUser;
         this.antarayahType = antarayahType;
         this.sahabhuvaType = sahabhuvaType;
@@ -66,15 +66,15 @@ public class IncidentEntryForm implements Serializable
 
     @Override
     public String toString() {
-        return String.format("IncidentEntryForm[incidentId=%d, entryDate='%s', userEmail='%s', antarayahType='%s', sahabhuvaType='%s', description='%s']", entryDate.toString(), atmanUser.getUserEmail(), antarayahType, sahabhuvaType, description);
+        return String.format("IncidentEntryForm[incidentId=%d, entryDate='%s', userEmail='%s', antarayahType='%s', sahabhuvaType='%s', description='%s']", date.toString(), atmanUser.getUserEmail(), antarayahType, sahabhuvaType, description);
     }
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
     }
 
-    public Date getEntryDate() {
-        return entryDate;
+    public Date getDate() {
+        return date;
     }
 
     public AtmanUser getUser() {
@@ -93,8 +93,8 @@ public class IncidentEntryForm implements Serializable
         return description;
     }
 
-    public void setEntryDate(Date entryDate) {
-        this.entryDate = entryDate;
+    public void setEntryDate(Date date) {
+        this.date = date;
     }
 
     public void setUser(AtmanUser atmanUser) {

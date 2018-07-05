@@ -10,101 +10,101 @@ CREATE DATABASE youareatman;
 -- Following tutorial at https://www.meetspaceapp.com/2016/04/12/passwords-postgresql-pgcrypto.html
 CREATE EXTENSION pgcrypto;
 
--- CREATE TABLE "AtmanUser" -----------------------------------------
-CREATE TABLE "AtmanUser" ( 
-	"UserEmail" Character Varying( 100 ) NOT NULL,
-	"JoinDate" Date DEFAULT CURRENT_DATE NOT NULL,
-	"PassHash" Character Varying( 100 ) NOT NULL,
-	PRIMARY KEY ( "UserEmail" ) );
+-- CREATE TABLE "atman_user" -----------------------------------------
+CREATE TABLE "atman_user" (
+	"user_email" Character Varying( 100 ) NOT NULL,
+	"join_date" Date DEFAULT CURRENT_DATE NOT NULL,
+	"pass_hash" Character Varying( 100 ) NOT NULL,
+	PRIMARY KEY ( "user_email" ) );
  ;
 -- -------------------------------------------------------------
 
--- CREATE INDEX "index_UserEmail" ----------------------------------
-CREATE INDEX "index_UserEmail" ON "AtmanUser" USING btree( "UserEmail" );
+-- CREATE INDEX "index_user_email" ----------------------------------
+CREATE INDEX "index_user_email" ON "atman_user" USING btree( "user_email" );
 -- -------------------------------------------------------------
 
--- CREATE TABLE "Yamas" ----------------------------------------
-CREATE TABLE "Yamas" ( 
-	"Date" Date NOT NULL,
-	"AtmanUser" Character Varying( 100 ) NOT NULL,
-	"Ahimsa" Boolean NOT NULL,
-	"Satya" Boolean NOT NULL,
-	"Asteya" Boolean NOT NULL,
-	"Brahmacharya" Boolean NOT NULL,
-	"Aparigraha" Boolean NOT NULL,
-	PRIMARY KEY ( "Date", "AtmanUser" ) );
+-- CREATE TABLE "yamas" ----------------------------------------
+CREATE TABLE "yamas" (
+	"date" Date NOT NULL,
+	"atman_user" Character Varying( 100 ) NOT NULL,
+	"ahimsa" Boolean NOT NULL,
+	"satya" Boolean NOT NULL,
+	"asteya" Boolean NOT NULL,
+	"brahmacharya" Boolean NOT NULL,
+	"aparigraha" Boolean NOT NULL,
+	PRIMARY KEY ( "date", "atman_user" ) );
  ;
 -- -------------------------------------------------------------
 
--- CREATE INDEX "index_AtmanUser" -----------------------------------
-CREATE INDEX "index_AtmanUser" ON "Yamas" USING btree( "AtmanUser" );
+-- CREATE INDEX "index_atman_user" -----------------------------------
+CREATE INDEX "index_atman_user" ON "yamas" USING btree( "atman_user" );
 -- -------------------------------------------------------------
 
--- CREATE INDEX "index_Date" -----------------------------------
-CREATE INDEX "index_Date" ON "Yamas" USING btree( "Date" );
+-- CREATE INDEX "index_date" -----------------------------------
+CREATE INDEX "index_date" ON "yamas" USING btree( "date" );
 -- -------------------------------------------------------------
 
--- CREATE TABLE "Niyamas" --------------------------------------
-CREATE TABLE "Niyamas" ( 
-	"Date" Date NOT NULL,
-	"AtmanUser" Character Varying( 100 ) NOT NULL,
-	"Shaucha" Boolean NOT NULL,
-	"Santosha" Boolean NOT NULL,
-	"Tapas" Boolean NOT NULL,
-	"Svadhyaya" Boolean NOT NULL,
-	"Ishvara Pranidhana" Boolean NOT NULL,
-	PRIMARY KEY ( "Date", "AtmanUser" ) );
+-- CREATE TABLE "niyamas" --------------------------------------
+CREATE TABLE "niyamas" (
+	"date" Date NOT NULL,
+	"atman_user" Character Varying( 100 ) NOT NULL,
+	"shaucha" Boolean NOT NULL,
+	"santosha" Boolean NOT NULL,
+	"tapas" Boolean NOT NULL,
+	"svadhyaya" Boolean NOT NULL,
+	"ishvara_pranidhana" Boolean NOT NULL,
+	PRIMARY KEY ( "date", "atman_user" ) );
  ;
 -- -------------------------------------------------------------
 
--- CREATE INDEX "index_AtmanUser1" -----------------------------------
-CREATE INDEX "index_AtmanUser1" ON "Niyamas" USING btree( "AtmanUser" );
+-- CREATE INDEX "index_atman_user1" -----------------------------------
+CREATE INDEX "index_atman_user1" ON "niyamas" USING btree( "atman_user" );
 -- -------------------------------------------------------------
 
--- CREATE INDEX "index_Date1" ----------------------------------
-CREATE INDEX "index_Date1" ON "Niyamas" USING btree( "Date" );
+-- CREATE INDEX "index_date1" ----------------------------------
+CREATE INDEX "index_date1" ON "niyamas" USING btree( "date" );
 -- -------------------------------------------------------------
 
--- CREATE LINK "lnk_AtmanUser_Yamas" --------------------------------
-ALTER TABLE "Yamas"
-	ADD CONSTRAINT "lnk_AtmanUser_Yamas" FOREIGN KEY ( "AtmanUser" )
-	REFERENCES "AtmanUser" ( "UserEmail" ) MATCH FULL
+-- CREATE LINK "lnk_atman_user_yamas" --------------------------------
+ALTER TABLE "yamas"
+	ADD CONSTRAINT "lnk_atman_user_yamas" FOREIGN KEY ( "atman_user" )
+	REFERENCES "atman_user" ( "user_email" ) MATCH FULL
 	ON DELETE Cascade
 	ON UPDATE Cascade;
 -- -------------------------------------------------------------
 
--- CREATE LINK "lnk_AtmanUser_Niyamas" ------------------------------
-ALTER TABLE "Niyamas"
-	ADD CONSTRAINT "lnk_AtmanUser_Niyamas" FOREIGN KEY ( "AtmanUser" )
-	REFERENCES "AtmanUser" ( "UserEmail" ) MATCH FULL
+-- CREATE LINK "lnk_atman_user_niyamas" ------------------------------
+ALTER TABLE "niyamas"
+	ADD CONSTRAINT "lnk_atman_user_niyamas" FOREIGN KEY ( "atman_user" )
+	REFERENCES "atman_user" ( "user_email" ) MATCH FULL
 	ON DELETE Cascade
 	ON UPDATE Cascade;
 -- -------------------------------------------------------------
 
--- CREATE TABLE "Incident" -------------------------------------
-CREATE TABLE "Incident" ( 
-	"IncidentId" Serial NOT NULL,
-	"UserEmail" Character Varying( 100 ) NOT NULL,
-	"Date" Date NOT NULL,
-	"AntarayahType" Character Varying( 50 ) NOT NULL,
-	"SahabhuvaType" Character Varying( 50 ),
-	"Description" Character Varying( 2044 ) NOT NULL,
-	PRIMARY KEY ( "IncidentId" ) );
+-- CREATE TABLE "incident" -------------------------------------
+CREATE TABLE "incident" (
+	"incident_id" Serial NOT NULL,
+	"user_email" Character Varying( 100 ) NOT NULL,
+	"date" Date NOT NULL,
+	"antarayah_type" Character Varying( 50 ) NOT NULL,
+	"sahabhuva_type" Character Varying( 50 ),
+	"description" Character Varying( 2044 ) NOT NULL,
+	PRIMARY KEY ( "incident_id" ) );
  ;
 -- -------------------------------------------------------------
 
--- CREATE INDEX "index_UserEmail2" ----------------------------------
-CREATE INDEX "index_UserEmail2" ON "Incident" USING btree( "UserEmail" );
+-- CREATE INDEX "index_user_email2" ----------------------------------
+CREATE INDEX "index_user_email2" ON "incident" USING btree( "user_email" );
 -- -------------------------------------------------------------
 
--- CREATE INDEX "index_Date2" ----------------------------------
-CREATE INDEX "index_Date2" ON "Incident" USING btree( "Date" );
+-- CREATE INDEX "index_date2" ----------------------------------
+CREATE INDEX "index_date2" ON "incident" USING btree( "date" );
 -- -------------------------------------------------------------
 
--- CREATE LINK "lnk_Incident_UserEmail2" -----------------------------
-ALTER TABLE "Incident"
-	ADD CONSTRAINT "lnk_Incident_UserEmail" FOREIGN KEY ( "UserEmail" )
-	REFERENCES "AtmanUser" ( "UserEmail" ) MATCH FULL
+-- CREATE LINK "lnk_Incident_user_email2" -----------------------------
+ALTER TABLE "incident"
+	ADD CONSTRAINT "lnk_incident_user_email" FOREIGN KEY ( "user_email" )
+	REFERENCES "atman_user" ( "user_email" ) MATCH FULL
 	ON DELETE Cascade
 	ON UPDATE Cascade;
 -- -------------------------------------------------------------

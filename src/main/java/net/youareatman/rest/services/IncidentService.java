@@ -42,7 +42,7 @@ public class IncidentService {
 
     public List<IncidentEntry> listIncidentEntriesByDate(Date date){
         List<IncidentEntry> incidents = new ArrayList<IncidentEntry>();
-        incidentRepository.findByEntryDate(date).forEach(incidents::add);;
+        incidentRepository.findByDate(date).forEach(incidents::add);;
         return incidents;
     }
 
@@ -85,8 +85,8 @@ public class IncidentService {
         if (form.getDescription() != null) {
             target.setDescription(form.getDescription());
         }
-        if (form.getEntryDate() != null) {
-            target.setEntryDate(form.getEntryDate());
+        if (form.getDate() != null) {
+            target.setDate(form.getDate());
         }
         if (form.getSahabhuvaType() != null) {
             target.setSahabhuvaType(form.getSahabhuvaType());
