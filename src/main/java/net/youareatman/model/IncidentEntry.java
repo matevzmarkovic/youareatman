@@ -18,6 +18,7 @@
 
 package net.youareatman.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -29,27 +30,28 @@ import java.util.Date;
 @Table(name = "Incident")
 public class IncidentEntry implements Serializable
 {
-    private static final long serialVersionUID = -3009141732242241606L;
+    private static final long serialVersionUID = -3029141732242241606L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "incidentId")
+    @Column(name = "IncidentId")
     private String incidentId;
 
-    @Column(name = "entryDate")
+    @Column(name = "Date")
     private Date entryDate;
 
     @ManyToOne
-    @JoinColumn(name = "Email")
+    @JoinColumn(name = "UserEmail", referencedColumnName="UserEmail", nullable = false)
+    @JsonBackReference
     private AtmanUser atmanUser;
 
-    @Column(name = "antarayahType")
+    @Column(name = "AntarayahType")
     private String antarayahType;
 
-    @Column(name = "sahabhuvaType")
+    @Column(name = "SahabhuvaType")
     private String sahabhuvaType;
 
-    @Column(name = "description")
+    @Column(name = "Description")
     private String description;
 
     private static Logger logger = LogManager.getLogger(IncidentEntry.class);
@@ -84,7 +86,7 @@ public class IncidentEntry implements Serializable
         return entryDate;
     }
 
-    public AtmanUser getAtmanUser() {
+    public AtmanUser getUser() {
         return atmanUser;
     }
 

@@ -12,15 +12,15 @@ CREATE EXTENSION pgcrypto;
 
 -- CREATE TABLE "AtmanUser" -----------------------------------------
 CREATE TABLE "AtmanUser" ( 
-	"Email" Character Varying( 100 ) NOT NULL,
+	"UserEmail" Character Varying( 100 ) NOT NULL,
 	"JoinDate" Date DEFAULT CURRENT_DATE NOT NULL,
 	"PassHash" Character Varying( 100 ) NOT NULL,
-	PRIMARY KEY ( "Email" ) );
+	PRIMARY KEY ( "UserEmail" ) );
  ;
 -- -------------------------------------------------------------
 
--- CREATE INDEX "index_Email" ----------------------------------
-CREATE INDEX "index_Email" ON "AtmanUser" USING btree( "Email" );
+-- CREATE INDEX "index_UserEmail" ----------------------------------
+CREATE INDEX "index_UserEmail" ON "AtmanUser" USING btree( "UserEmail" );
 -- -------------------------------------------------------------
 
 -- CREATE TABLE "Yamas" ----------------------------------------
@@ -68,7 +68,7 @@ CREATE INDEX "index_Date1" ON "Niyamas" USING btree( "Date" );
 -- CREATE LINK "lnk_AtmanUser_Yamas" --------------------------------
 ALTER TABLE "Yamas"
 	ADD CONSTRAINT "lnk_AtmanUser_Yamas" FOREIGN KEY ( "AtmanUser" )
-	REFERENCES "AtmanUser" ( "Email" ) MATCH FULL
+	REFERENCES "AtmanUser" ( "UserEmail" ) MATCH FULL
 	ON DELETE Cascade
 	ON UPDATE Cascade;
 -- -------------------------------------------------------------
@@ -76,7 +76,7 @@ ALTER TABLE "Yamas"
 -- CREATE LINK "lnk_AtmanUser_Niyamas" ------------------------------
 ALTER TABLE "Niyamas"
 	ADD CONSTRAINT "lnk_AtmanUser_Niyamas" FOREIGN KEY ( "AtmanUser" )
-	REFERENCES "AtmanUser" ( "Email" ) MATCH FULL
+	REFERENCES "AtmanUser" ( "UserEmail" ) MATCH FULL
 	ON DELETE Cascade
 	ON UPDATE Cascade;
 -- -------------------------------------------------------------
@@ -84,7 +84,7 @@ ALTER TABLE "Niyamas"
 -- CREATE TABLE "Incident" -------------------------------------
 CREATE TABLE "Incident" ( 
 	"IncidentId" Serial NOT NULL,
-	"AtmanUser" Character Varying( 100 ) NOT NULL,
+	"UserEmail" Character Varying( 100 ) NOT NULL,
 	"Date" Date NOT NULL,
 	"AntarayahType" Character Varying( 50 ) NOT NULL,
 	"SahabhuvaType" Character Varying( 50 ),
@@ -93,18 +93,18 @@ CREATE TABLE "Incident" (
  ;
 -- -------------------------------------------------------------
 
--- CREATE INDEX "index_AtmanUser2" ----------------------------------
-CREATE INDEX "index_AtmanUser2" ON "Incident" USING btree( "AtmanUser" );
+-- CREATE INDEX "index_UserEmail2" ----------------------------------
+CREATE INDEX "index_UserEmail2" ON "Incident" USING btree( "UserEmail" );
 -- -------------------------------------------------------------
 
 -- CREATE INDEX "index_Date2" ----------------------------------
 CREATE INDEX "index_Date2" ON "Incident" USING btree( "Date" );
 -- -------------------------------------------------------------
 
--- CREATE LINK "lnk_Incident_AtmanUser" -----------------------------
+-- CREATE LINK "lnk_Incident_UserEmail2" -----------------------------
 ALTER TABLE "Incident"
-	ADD CONSTRAINT "lnk_Incident_AtmanUser" FOREIGN KEY ( "AtmanUser" )
-	REFERENCES "AtmanUser" ( "Email" ) MATCH FULL
+	ADD CONSTRAINT "lnk_Incident_UserEmail" FOREIGN KEY ( "UserEmail" )
+	REFERENCES "AtmanUser" ( "UserEmail" ) MATCH FULL
 	ON DELETE Cascade
 	ON UPDATE Cascade;
 -- -------------------------------------------------------------

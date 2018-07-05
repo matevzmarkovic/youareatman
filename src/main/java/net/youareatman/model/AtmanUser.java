@@ -24,6 +24,7 @@ import org.apache.logging.log4j.Logger;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -32,18 +33,18 @@ public class AtmanUser implements Serializable
 {
     private static final long serialVersionUID = -3009157755542241606L;
 
-    @Column(name = "joinDate")
-    private Date joinDate;
-
     @Id
-    @Column(name = "Email")
+    @Column(name = "UserEmail")
     private String userEmail;
 
-    @Column(name = "passwordHash")
+    @Column(name = "JoinDate")
+    private Date joinDate;
+
+    @Column(name = "PassHash")
     private String passwordHash;
 
     @OneToMany(mappedBy = "atmanUser", cascade = CascadeType.ALL)
-    private Set<IncidentEntry> incidentEntrySet;
+    private Set<IncidentEntry> incidentEntrySet = new HashSet<IncidentEntry>();
 
     private static Logger logger = LogManager.getLogger(AtmanUser.class);
 

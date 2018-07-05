@@ -90,8 +90,8 @@ public class IncidentService {
         if (source.getSahabhuvaType() != null) {
             destination.setSahabhuvaType(source.getSahabhuvaType());
         }
-        if (source.getAtmanUser() != null) {
-            destination.setUser(source.getAtmanUser());
+        if (source.getUser() != null) {
+            destination.setUser(source.getUser());
         }
     }
 
