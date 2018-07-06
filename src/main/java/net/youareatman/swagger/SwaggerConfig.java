@@ -1,4 +1,4 @@
-package net.youareatman;
+package net.youareatman.swagger;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,7 +21,8 @@ public class SwaggerConfig {
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("net.youareatman.rest.controllers"))
                 .paths(PathSelectors.any())
-                .build();
+                .build()
+                .apiInfo(apiInfo());
     }
 
     private ApiInfo apiInfo() {
@@ -30,6 +31,6 @@ public class SwaggerConfig {
                 "Backend API for helping people track their daily spiritual work and ego problems.",
                 "V1",
                 "",
-                new Contact("Matevž Markovič", "https://www.linkedin.com/in/matevz-markovic/", "matevz.markovic@arnes.si"),"","",Collections.emptyList());
+                new Contact("Matevž Markovič", "https://github.com/matevzmarkovic/youareatman_backend", "matevz.markovic@arnes.si"),"","",Collections.emptyList());
     }
 }
