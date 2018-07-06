@@ -1,9 +1,7 @@
 package net.youareatman.rest.services;
 
 import net.youareatman.enums.ErrorTypesEnum;
-import net.youareatman.exceptions.GenericYouAreAtmanException;
 import net.youareatman.exceptions.IncidentManagementException;
-import net.youareatman.exceptions.UserManagementException;
 import net.youareatman.model.IncidentEntry;
 import net.youareatman.model.forms.IncidentEntryForm;
 import net.youareatman.rest.repositories.IncidentRepository;
@@ -57,7 +55,7 @@ public class IncidentService {
         validateIncidentId(incidentId);
 
         List<IncidentEntry> incidents = new ArrayList<IncidentEntry>();
-        return incidentRepository.findById(incidentId).orElseThrow(() -> new IncidentManagementException("Error while reading incident from database", ErrorTypesEnum.InvalidIncidentIdError));
+        return incidentRepository.findById(incidentId).orElseThrow(() -> new IncidentManagementException("Error while reading incident from database", ErrorTypesEnum.IncidentNotFoundError));
     }
 
     //Ignore incidentId in the sourceIncidentEntry, as it is used just as a placeholder for data

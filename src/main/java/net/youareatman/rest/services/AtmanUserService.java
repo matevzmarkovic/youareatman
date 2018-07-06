@@ -1,7 +1,6 @@
 package net.youareatman.rest.services;
 
 import net.youareatman.enums.ErrorTypesEnum;
-import net.youareatman.exceptions.GenericYouAreAtmanException;
 import net.youareatman.exceptions.UserManagementException;
 import net.youareatman.model.AtmanUser;
 import net.youareatman.model.forms.ChangeDateForm;
@@ -13,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import static net.youareatman.enums.ErrorTypesEnum.*;
 import static net.youareatman.helpers.YouAreAtmanHelpers.*;
 import static net.youareatman.helpers.YouAreAtmanHelpers.validatePasswordHash;
 
@@ -38,10 +34,10 @@ public class AtmanUserService {
         return users;
     }
 
-    public AtmanUser listUser(String userEmail) throws GenericYouAreAtmanException {
+    public AtmanUser listUser(String userEmail) throws UserManagementException {
         validateUserEmail(userEmail);
 
-        AtmanUser userEntry = atmanUserRepository.findById(userEmail).orElseThrow(() -> new UserManagementException("Error while reading user " + userEmail + "from database", ErrorTypesEnum.InvalidUserIdError));
+        AtmanUser userEntry = atmanUserRepository.findById(userEmail).orElseThrow(() -> new UserManagementException("Error while reading user " + userEmail + "from database", ErrorTypesEnum.UserNotFoundError));
         return userEntry;
     }
 
@@ -49,7 +45,7 @@ public class AtmanUserService {
         validateUserEmail(userEmail);
         validatePasswordRaw(changePasswordForm.getPassword());
 
-        AtmanUser userEntry = atmanUserRepository.findById(userEmail).orElseThrow(() -> new UserManagementException("Error while reading user " + userEmail + "from database", ErrorTypesEnum.InvalidUserIdError));
+        AtmanUser userEntry = atmanUserRepository.findById(userEmail).orElseThrow(() -> new UserManagementException("Error while reading user " + userEmail + "from database", ErrorTypesEnum.UserNotFoundError));
         userEntry.setPassHash(hashPassword(changePasswordForm.getPassword()));
         atmanUserRepository.save(userEntry);
 
@@ -60,7 +56,7 @@ public class AtmanUserService {
         validateUserEmail(userEmail);
         validateDate(changeDateForm.getJoinDate());
 
-        AtmanUser userEntry = atmanUserRepository.findById(userEmail).orElseThrow(() -> new UserManagementException("Error while reading user " + userEmail + "from database", ErrorTypesEnum.InvalidUserIdError));
+        AtmanUser userEntry = atmanUserRepository.findById(userEmail).orElseThrow(() -> new UserManagementException("Error while reading user " + userEmail + "from database", ErrorTypesEnum.UserNotFoundError));
         userEntry.setJoinDate(changeDateForm.getJoinDate());
         atmanUserRepository.save(userEntry);
 

@@ -1,5 +1,6 @@
 package net.youareatman.rest.controllers;
 
+import net.youareatman.enums.ErrorTypesEnum;
 import net.youareatman.exceptions.GenericYouAreAtmanException;
 import net.youareatman.exceptions.IncidentManagementException;
 import net.youareatman.model.IncidentEntry;
@@ -8,6 +9,7 @@ import net.youareatman.rest.services.IncidentService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -40,11 +42,10 @@ public class IncidentController {
     @RequestMapping(value = "/incidents/{userEmail}",method=GET)
     @ResponseBody
     public ResponseEntity<List<IncidentEntry>> listIncidentEntriesByUser(@PathVariable( "userEmail" ) String userEmail) {
-
         try {
-            return ResponseEntity.ok(incidentService.listIncidentEntriesByUser(userEmail));
+            return new ResponseEntity(incidentService.listIncidentEntriesByUser(userEmail), HttpStatus.OK);
         } catch (IncidentManagementException e) {
-            return ResponseEntity.badRequest().build();
+            return processIncidentManagementException(e);
         }
 
     }
@@ -54,38 +55,35 @@ public class IncidentController {
     public ResponseEntity<List<IncidentEntry>> listIncidentEntriesByDate(@PathVariable( "date" ) Date date) {
 
         try {
-            return ResponseEntity.ok(incidentService.listIncidentEntriesByDate(date));
+            return new ResponseEntity(incidentService.listIncidentEntriesByDate(date), HttpStatus.OK);
         } catch (IncidentManagementException e) {
-            return ResponseEntity.badRequest().build();
+            return processIncidentManagementException(e);
         }
     }
 
     @RequestMapping(value = "/incidents/{incidentId}",method=GET)
     @ResponseBody
     public ResponseEntity<IncidentEntry> listIncidentEntry(@PathVariable( "incidentId" ) String incidentId) {
-
         try {
-            return ResponseEntity.ok(incidentService.listIncidentEntry(incidentId));
-        } catch (GenericYouAreAtmanException e) {
-            return ResponseEntity.badRequest().build();
+            return new ResponseEntity(incidentService.listIncidentEntry(incidentId), HttpStatus.OK);
+        } catch (IncidentManagementException e) {
+            return processIncidentManagementException(e);
         }
     }
 
     @RequestMapping(value = "/incidents",method=POST)
     @ResponseBody
-    public ResponseEntity createIncidentEntry(@RequestBody IncidentEntry incidentEntry) {
-
-        return ResponseEntity.ok(incidentService.createIncidentEntry(incidentEntry));
+    public ResponseEntity<IncidentEntry> createIncidentEntry(@RequestBody IncidentEntry incidentEntry) {
+        return new ResponseEntity(incidentService.createIncidentEntry(incidentEntry), HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/incidents/{incidentId}",method=PUT)
     @ResponseBody
-    public ResponseEntity changeIncident(@PathVariable( "incidentId" ) String incidentId, @RequestBody IncidentEntryForm incidentEntryForm) {
-
+    public ResponseEntity<IncidentEntry> changeIncident(@PathVariable( "incidentId" ) String incidentId, @RequestBody IncidentEntryForm incidentEntryForm) {
         try {
-            return ResponseEntity.ok(incidentService.changeIncidentEntry(incidentId, incidentEntryForm));
+            return new ResponseEntity(incidentService.changeIncidentEntry(incidentId, incidentEntryForm),HttpStatus.OK);
         } catch (IncidentManagementException e) {
-            return ResponseEntity.badRequest().build();
+            return processIncidentManagementException(e);
         }
     }
 
@@ -95,11 +93,27 @@ public class IncidentController {
 
         try {
             incidentService.deleteIncidentEntry(incidentId);
-            return ResponseEntity.ok().build();
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
         } catch (IncidentManagementException e) {
-            return ResponseEntity.badRequest().build();
+            return processIncidentManagementException(e);
         }
+    }
 
+    /**
+     * Generate response in accordance with the nature of exception that occurred.
+     * @param e the exception that occurred
+     * @return Response entity with the correct HttpStatus code
+     */
+    private ResponseEntity processIncidentManagementException(IncidentManagementException e) {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("error_message",e.getMessage());
+
+        ErrorTypesEnum errorType = e.getErrorType();
+        if (errorType.equals(ErrorTypesEnum.IncidentNotFoundError)){
+            return new ResponseEntity(httpHeaders,HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity(httpHeaders,HttpStatus.BAD_REQUEST);
+        }
     }
 
 }

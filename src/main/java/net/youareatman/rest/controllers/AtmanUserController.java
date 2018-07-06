@@ -1,20 +1,22 @@
 package net.youareatman.rest.controllers;
 
-import net.youareatman.exceptions.GenericYouAreAtmanException;
+import net.youareatman.enums.ErrorTypesEnum;
 import net.youareatman.exceptions.UserManagementException;
-import net.youareatman.helpers.YouAreAtmanHelpers;
 import net.youareatman.model.*;
 import net.youareatman.model.forms.*;
 import net.youareatman.rest.services.AtmanUserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
-import static net.youareatman.helpers.YouAreAtmanHelpers.hashPassword;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RestController
@@ -25,9 +27,6 @@ public class AtmanUserController {
 
     private static Logger logger = LogManager.getLogger(AtmanUserController.class);
 
-    //TODO add https
-    //TODO add better exception handling
-
     //******************************************************************************************************************
     //                                              User management
     //******************************************************************************************************************
@@ -36,7 +35,7 @@ public class AtmanUserController {
     @ResponseBody
     public ResponseEntity<List<AtmanUser>> listUsers() {
         List<AtmanUser> users = atmanUserService.listUsers();
-        return ResponseEntity.ok(users);
+        return new ResponseEntity(users,HttpStatus.OK);
     }
 
     @RequestMapping(value = "/atmanusers/{userEmail}",method=GET)
@@ -44,9 +43,9 @@ public class AtmanUserController {
     public ResponseEntity<AtmanUser> listUser(@PathVariable( "userEmail" ) String userEmail) {
         try {
             AtmanUser user = atmanUserService.listUser(userEmail);
-            return ResponseEntity.ok(user);
-        } catch (GenericYouAreAtmanException e) {
-            return ResponseEntity.badRequest().build();
+            return new ResponseEntity(user,HttpStatus.OK);
+        } catch (UserManagementException e) {
+            return processUserManagementException(e);
         }
 
     }
@@ -57,9 +56,9 @@ public class AtmanUserController {
 
         try {
             AtmanUser user = atmanUserService.changePassword(userEmail, changePasswordForm);
-            return ResponseEntity.ok(user);
-        } catch (GenericYouAreAtmanException e) {
-            return ResponseEntity.badRequest().build();
+            return new ResponseEntity(user,HttpStatus.OK);
+        } catch (UserManagementException e) {
+            return processUserManagementException(e);
         }
     }
 
@@ -69,10 +68,10 @@ public class AtmanUserController {
 
         try{
             AtmanUser user = atmanUserService.changeUserJoinDate(userEmail, changeDateForm);
-            return ResponseEntity.ok(user);
+            return new ResponseEntity(user,HttpStatus.OK);
         }
-        catch(GenericYouAreAtmanException e){
-            return ResponseEntity.badRequest().build();
+        catch(UserManagementException e){
+            return processUserManagementException(e);
         }
     }
 
@@ -81,9 +80,9 @@ public class AtmanUserController {
     public ResponseEntity createUser(@PathVariable( "userEmail" ) String userEmail, @RequestBody String password) {
         try {
             AtmanUser user = atmanUserService.createUser(userEmail, password);
-            return ResponseEntity.ok(user);
+            return new ResponseEntity(user,HttpStatus.CREATED);
         } catch (UserManagementException e) {
-            return ResponseEntity.badRequest().build();
+            return processUserManagementException(e);
         }
     }
 
@@ -93,12 +92,27 @@ public class AtmanUserController {
 
         try {
             atmanUserService.deleteUser(userEmail);
-            return ResponseEntity.ok().build();
-
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
         } catch (UserManagementException e) {
-            return ResponseEntity.badRequest().build();
+            return processUserManagementException(e);
         }
+    }
 
+    /**
+     * Generate response in accordance with the nature of exception that occurred.
+     * @param e the exception that occurred
+     * @return Response entity with the correct HttpStatus code
+     */
+    private ResponseEntity processUserManagementException(UserManagementException e) {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("error_message",e.getMessage());
+
+        ErrorTypesEnum errorType = e.getErrorType();
+        if (errorType.equals(ErrorTypesEnum.UserNotFoundError)){
+            return new ResponseEntity(httpHeaders,HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity(httpHeaders,HttpStatus.BAD_REQUEST);
+        }
     }
 
 }
