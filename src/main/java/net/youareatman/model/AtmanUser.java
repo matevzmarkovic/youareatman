@@ -40,6 +40,10 @@ public class AtmanUser implements Serializable
 
     private static Logger logger = LogManager.getLogger(AtmanUser.class);
 
+    private AtmanUser(){
+
+    }
+
     public AtmanUser(String userEmail, String passHash){
         Date today = Calendar.getInstance(TimeZone.getDefault()).getTime();
         this.joinDate = today;
