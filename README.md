@@ -46,6 +46,12 @@ https://localhost:8443/YouAreAtman/api/swagger-ui.html#
 
 # Implementation details
 
+## Possible future work
+1. Introduce proper error handling (https://www.toptal.com/java/spring-boot-rest-api-error-handling).
+2. Externalize configuration (https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-external-config.html).
+3. Rework handling and storing of passwords using Spring Security.
+4. Use OAuth2. Use tokens.
+
 ## PostgreSQL database schema
 
 ![Shema should be here...](https://github.com/matevzmarkovic/youareatman/blob/master/help/database_shema.png)
