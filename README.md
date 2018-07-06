@@ -3,7 +3,7 @@ Purpose of the You Are Atman project is to enable spiritual aspirants on the Yog
 
 It is based on the Yoga Sūtras of Patañjali, where it exposes the first two Yoga limbs. It provides the opportunity to the aspirant to note down, whether on a particular day he or she managed to follow all Yamas (moral imperatives) and Niyamas (virtuous habits, behaviors and observances); as well to describe particular obstacles (Antarayah) and possible correlates (Sahabhuva) that have manifested during the course of the day.
 
-##Purpose of this backend
+## Purpose of this backend
 
 The idea of the whole project is to deploy REST API on a backend server and create multiple frontends for all kinds of devices people come across during the course of their day. Not just modern smartphones and tables, but anything that is capable of doing REST calls - TVs, cars, even a toilet if need be. Spiritual aspirants are ever-vigilant, they pick up ego incidents very quickly and thus need as many possibilities for quickly noting these down as possible.
 
@@ -31,7 +31,7 @@ Should you want to deploy the app, grab the jar file from *target/* and run it w
 $java -jar target/youareatman-1.0-SNAPSHOT.jar
 ```
 
-#Swagger documentation
+# Swagger documentation
 Swagger JSON can be accessed through *api/v2/api-docs*, for example
 ```
 https://localhost:8443/YouAreAtman/api/v2/api-docs
