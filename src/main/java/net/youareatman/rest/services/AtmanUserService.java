@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 
+import static net.youareatman.enums.ErrorTypesEnum.UserExists;
 import static net.youareatman.helpers.YouAreAtmanHelpers.*;
 import static net.youareatman.helpers.YouAreAtmanHelpers.validatePasswordHash;
 
@@ -75,6 +76,10 @@ public class AtmanUserService {
         validatePasswordRaw(password);
         String passHash = hashPassword(password);
         validatePasswordHash(passHash);
+
+        if (atmanUserRepository.existsById(userEmail)) {
+            throw new UserManagementException("This user already exists",UserExists);
+        }
 
         AtmanUser user = new AtmanUser(userEmail,passHash);
         atmanUserRepository.save(user);

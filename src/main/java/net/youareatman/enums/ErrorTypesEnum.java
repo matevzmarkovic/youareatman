@@ -9,10 +9,11 @@ public enum ErrorTypesEnum {
     EmptyUserEmailError(5,"Provided user email was empty."),
     EmptyPasswordHashError(6,"Provided password hash was empty."),
     InvalidUserEmailError(7,"Provided user email is invalid."),
-    InvalidPasswordHashError(8,"Provided password hash is invalid."),
-    InvalidDate(9,"Provided date is invalid."),
+    MalformedPasswordHashError(8,"Provided password hash is malformed."),
+    EmptyDate(9,"Provided date is empty."),
     EmptyPasswordError(10,"Empty raw password was provided."),
-    EmptyIncidentIdError(11,"Provided incidentId was empty.")
+    EmptyIncidentIdError(11,"Provided incidentId was empty."),
+    UserExists(12,"User with this email already exists.")
     ;
 
     private final int code;

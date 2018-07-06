@@ -108,8 +108,10 @@ public class AtmanUserController {
         httpHeaders.add("error_message",e.getMessage());
 
         ErrorTypesEnum errorType = e.getErrorType();
-        if (errorType.equals(ErrorTypesEnum.UserNotFoundError)){
-            return new ResponseEntity(httpHeaders,HttpStatus.NOT_FOUND);
+        if (errorType.equals(ErrorTypesEnum.UserNotFoundError)) {
+            return new ResponseEntity(httpHeaders, HttpStatus.NOT_FOUND);
+        } else if (errorType.equals(ErrorTypesEnum.UserExists)) {
+            return new ResponseEntity(httpHeaders, HttpStatus.I_AM_A_TEAPOT);
         } else {
             return new ResponseEntity(httpHeaders,HttpStatus.BAD_REQUEST);
         }
