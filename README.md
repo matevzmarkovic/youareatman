@@ -44,34 +44,6 @@ https://localhost:8443/YouAreAtman/api/swagger-ui.html#
 
 ![Swagger screenshot should be here...](https://github.com/matevzmarkovic/youareatman/blob/master/help/swagger.png)
 
-## Curently implemented API calls
-*Substitute localhost:8443 in examples bellow with the address of your server.*
-
-### Collection: atmanusers
-Users can be managed with these calls:
-
-```
-GET https://localhost:8443/YouAreAtman/atmanusers
-GET https://localhost:8443/YouAreAtman/atmanusers/{userEmail}
-POST https://localhost:8443/YouAreAtman/atmanusers/{userEmail}
-PUT https://localhost:8443/YouAreAtman/atmanusers/{userEmail}/password
-PUT https://localhost:8443/YouAreAtman/atmanusers/{userEmail}/date
-DELETE https://localhost:8443/YouAreAtman/atmanusers
-```
-
-### Collection: incidents
-Incidents, which occurred in users' lives, can be managed with these calls:
-
-```
-GET https://localhost:8443/YouAreAtman/incidents
-GET https://localhost:8443/YouAreAtman/incidents/{userEmail}
-GET https://localhost:8443/YouAreAtman/incidents/{date}
-GET https://localhost:8443/YouAreAtman/incidents/{incidentId}
-POST https://localhost:8443/YouAreAtman/incidents
-PUT https://localhost:8443/YouAreAtman/incidents/{incidentId}
-DELETE https://localhost:8443/YouAreAtman/incidents/{incidentId}
-```
-
 # Implementation details
 
 ## PostgreSQL database schema
