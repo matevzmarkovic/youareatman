@@ -41,7 +41,7 @@ public class YouAreAtmanHelpers {
     }
 
     public static void validatePasswordHash(String passwordHash) throws UserManagementException {
-        if (passwordHash == null) {
+        if (passwordHash == null || passwordHash.equals("")) {
             throw new UserManagementException("Empty password hash was provided.",EmptyPasswordHashError);
         } else if (passwordHash.length() != HashLength) {
             throw new UserManagementException("Invalid password hash was provided.", MalformedPasswordHashError);
