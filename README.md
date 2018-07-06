@@ -42,6 +42,8 @@ Should you want to use Swagger UI, access it at *api/swagger-ui.html*, for examp
 https://localhost:8443/YouAreAtman/api/swagger-ui.html#
 ```
 
+![Swagger screenshot should be here...](https://github.com/matevzmarkovic/youareatman/blob/master/help/swagger.png)
+
 ## Curently implemented API calls
 *Substitute localhost:8443 in examples bellow with the address of your server.*
 
