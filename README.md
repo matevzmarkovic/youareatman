@@ -31,6 +31,17 @@ Should you want to deploy the app, grab the jar file from *target/* and run it w
 $java -jar target/youareatman-1.0-SNAPSHOT.jar
 ```
 
+#Swagger documentation
+Swagger JSON can be accessed through *api/v2/api-docs*, for example
+```
+https://localhost:8443/YouAreAtman/api/v2/api-docs
+```
+
+Should you want to use Swagger UI, access it at *api/swagger-ui.html*, for example
+```
+https://localhost:8443/YouAreAtman/api/swagger-ui.html#
+```
+
 ## Curently implemented API calls
 *Substitute localhost:8443 in examples bellow with the address of your server.*
 
