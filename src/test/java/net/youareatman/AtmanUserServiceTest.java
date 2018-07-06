@@ -1,5 +1,6 @@
 package net.youareatman;
 
+import net.youareatman.enums.ErrorTypesEnum;
 import net.youareatman.exceptions.GenericYouAreAtmanException;
 import net.youareatman.exceptions.UserManagementException;
 import net.youareatman.model.AtmanUser;
@@ -32,7 +33,7 @@ public class AtmanUserServiceTest {
     }
 
     @Test
-    public void createAtmanUserSuccessfuly() throws Exception {
+    public void createAtmanUserSuccessfully() throws Exception {
         when(atmanUserRepositoryMock.findById(eq("test@arnes.si"))).thenReturn(Optional.empty());
         doAnswer(returnsFirstArg()).when(atmanUserRepositoryMock).save(any(AtmanUser.class));
 
@@ -45,14 +46,6 @@ public class AtmanUserServiceTest {
     @Test(expected = UserManagementException.class)
     public void createAtmanUserWithEmptyEmail() throws Exception {
         atmanUserServiceMock.createUser("","HashPass");
-    }
-
-    @Test(expected = UserManagementException.class)
-    public void createAtmanUserWithExistingEmail() throws Exception {
-        doThrow(new UserManagementException()).when(atmanUserRepositoryMock).findById(eq("test@arnes.si"));
-
-        atmanUserServiceMock.createUser("test@arnes.si","HashPass");
-
     }
 
 }
