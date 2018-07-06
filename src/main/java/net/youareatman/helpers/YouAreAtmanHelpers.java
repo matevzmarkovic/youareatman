@@ -44,19 +44,19 @@ public class YouAreAtmanHelpers {
         if (passwordHash == null) {
             throw new UserManagementException("Empty password hash was provided.",EmptyPasswordHashError);
         } else if (passwordHash.length() != HashLength) {
-            throw new UserManagementException("Invalid password hash was provided.",InvalidPasswordHashError);
+            throw new UserManagementException("Invalid password hash was provided.", MalformedPasswordHashError);
         }
     }
 
     public static void validatePasswordRaw(String passwordRaw) throws UserManagementException {
-        if (passwordRaw == null) {
+        if (passwordRaw == null || passwordRaw == "") {
             throw new UserManagementException("Empty password was provided.",EmptyPasswordError);
         }
     }
 
     public static void validateDate(Date date) throws UserManagementException {
         if (date == null) {
-            throw new UserManagementException("Empty date was provided.",InvalidDate);
+            throw new UserManagementException("Empty date was provided.", EmptyDate);
         }
     }
     //Just convert exception type
