@@ -18,7 +18,6 @@ $cd util/
 $docker build -t youareatman_postgres .
 $docker run -d --name YouAreAtmanPostgres -e POSTGRES_PASSWORD=youareatman -e POSTGRES_USER=atman youareatman_postgres
 ```
-*In the future it should also be possible to use SSL.*
 
 Since the You Are Atman Spring Boot app is behind the veil just a simple standalone Java application, which rides atop the *public static void main* method, you run it by executing
 ```
